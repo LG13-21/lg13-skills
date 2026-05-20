@@ -1,0 +1,50 @@
+---
+name: session-save
+description: "Průběžné uložení stavu session — uloží progress, aktualizuje CLAUDE.md pokud třeba, compact. Trigger: 'save', 'ulož stav', 'checkpoint', '/session-save', 'compact a ulož', nebo automaticky když context window přesáhne 60%. Neukončuje session — jen uloží a pokračuje."
+---
+
+# Session Save — Průběžný checkpoint
+
+Uloží aktuální progress BEZ ukončení session. Používat průběžně při delší práci.
+
+## Kdy spustit
+
+- Context window 60%+ → automaticky
+- Po dokončení většího bloku práce
+- Před riskantní operací
+- Tom řekne "ulož" / "save" / "checkpoint"
+- Po ~30 min intenzivní práce
+
+## Kroky
+
+### 1. Progress zápis
+
+Zapiš co je rozpracované do task queue (update, ne fail):
+
+```bash
+python L:/LG13/app/agent/instance_queue.py --send --to strat --from-inst <name> --msg "CHECKPOINT <name>: <co je hotové>, <co je rozpracované>, <co je next>" --priority P3
+```
+
+Jen pokud je co reportovat — ne prázdný checkpoint.
+
+### 2. CLAUDE.md update
+
+Pokud se od posledního save něco změnilo (nové pravidlo, cesta, endpoint, workflow) → zapsat.
+
+### 3. Compact
+
+Spusť `/compact` OKAMŽITĚ bez ptaní. Session-save je bezpečný — nic se neztrácí, kontext je v summary. NIKDY se neptat "chceš compact?" — prostě ho udělat.
+
+## Rozdíl od session-end
+
+| | session-save | session-end |
+|---|---|---|
+| Ukončuje session? | NE | ANO |
+| Failuje tasky? | NE (jen reportuje progress) | ANO (fail s popisem) |
+| Report strat? | Jen pokud je co říct | VŽDY |
+| Compact? | ANO | ANO |
+| Kontrola fronty? | NE | ANO |
+
+## Z omezeného přístupu
+
+Zapiš progress do `C:\Users\tom\Documents\SESSION_CHECKPOINT_<name>.md` (přepisuj, ne append).

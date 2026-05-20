@@ -1,0 +1,22 @@
+[
+  {"query": "chatgpt-send project=Legal message='zkontroluj tento odstavec'", "should_trigger": true},
+  {"query": "spust chatgpt-send a posli tam novy draft", "should_trigger": true},
+  {"query": "/chatgpt-send thread=https://chatgpt.com/c/6a04 message='co si o tom myslis'", "should_trigger": true},
+  {"query": "chatgpt-send project=Coding message='proc mi tenhle skript pada'", "should_trigger": true},
+  {"query": "potrebuju poslat zpravu do chatgpt pres playwright CDP", "should_trigger": true},
+  {"query": "otevri edge a posli chatgpt zpravu do Legal projektu", "should_trigger": true},
+  {"query": "chatgpt-send thread=https://chatgpt.com/c/abc123 special=/github message='https://github.com/...'", "should_trigger": true},
+  {"query": "pouzij chatgpt-send skill at to strat posle do chatgpt", "should_trigger": true},
+  {"query": "jak pouzit chatgpt na review tohoto dokumentu?", "should_trigger": false},
+  {"query": "co si chatgpt mysli o nasi strategii?", "should_trigger": false},
+  {"query": "otevri chatgpt a ukazuj mi co tam pise", "should_trigger": false},
+  {"query": "posli email Tomovi se souhrnem z chatgpt", "should_trigger": false},
+  {"query": "chatgpt odpvedel, co rika?", "should_trigger": false},
+  {"query": "pouzij playwright pro screenshot stranky", "should_trigger": false},
+  {"query": "zeptej se chatgpt jestli je tento argument validni", "should_trigger": false},
+  {"query": "force TM aby precetl toto chatgpt vlakno", "should_trigger": false},
+  {"query": "jak funguje Playwright CDP?", "should_trigger": false},
+  {"query": "chatgpt-force-read url=https://chatgpt.com/c/abc", "should_trigger": false},
+  {"query": "oponent review pres chatgpt na nase podani", "should_trigger": false},
+  {"query": "chatgpt ask — potrebuju druhej nazor", "should_trigger": false}
+]

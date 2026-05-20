@@ -1,0 +1,55 @@
+---
+name: strat-end
+description: "Strat session end — uloží vše, failne rozpracované tasky, aktualizuje CLAUDE.md, report, kontrola fronty + t002 + waiting_for_send."
+user-invocable: true
+---
+
+# Strat End — Ukončení session pro strat
+
+Kompletní uzavření strat session. Vše provést automaticky.
+
+## 1. Rozpracované úkoly
+
+Pro každý rozpracovaný task:
+```bash
+python L:/LG13/app/agent/instance_queue.py --fail --id <ID> --error "Session end: <popis stavu>"
+```
+
+## 2. Session summary
+
+```bash
+python L:/LG13/app/agent/instance_queue.py --send --to strat --from-inst strat --msg "SESSION END strat <datum>:
+HOTOVO: <vše co se dokončilo>
+NEDOKONČENO: <co zůstalo + stav + proč>
+AKTIVNÍ TASKY: <všechny nezavřené>
+WAITING_FOR_SEND: <drafty čekající na odeslání>
+DULEZITE PRO DALSI SESSION: <co nesmí příští strat zapomenout>" --priority P2
+```
+
+## 3. CLAUDE.md update
+
+Zkontrolovat a zapsat všechny změny z této session (architektura, pravidla, priority, kontakty).
+
+## 4. Kontrola fronty
+
+```bash
+python L:/LG13/app/agent/instance_queue.py --check --name strat
+```
+
+Zbylé pending tasky zmínit v reportu.
+
+## 5. t002 stav
+
+Je t002 aktivní? Má co dělat? Report.
+
+## 6. Waiting_for_send
+
+Drafty čekající na odeslání — zmínit v reportu. NEPOSÍLAT, jen reportovat stav.
+
+## 7. Open questions
+
+Aktualizovat `open_questions.md` — co zůstává otevřené.
+
+## 8. Hotovo
+
+Session ukončena. Žádný compact — session končí.

@@ -1,0 +1,22 @@
+[
+  {"query": "force TM to read this chatgpt thread: https://chatgpt.com/c/6a045cbe", "should_trigger": true},
+  {"query": "chatgpt-force-read url=https://chatgpt.com/c/abc123", "should_trigger": true},
+  {"query": "at to TM precte, url je https://chatgpt.com/c/6a04", "should_trigger": true},
+  {"query": "prinuti TM ingest aby zachytil toto chatgpt vlakno", "should_trigger": true},
+  {"query": "nacti odpoved z chatgpt do atomu — thread uz ma odpoved", "should_trigger": true},
+  {"query": "trigger TM ingest na tomto chatgpt threadu po odeslani zpravy", "should_trigger": true},
+  {"query": "force ingest chatgpt konverzace do LG13 pipeline", "should_trigger": true},
+  {"query": "poslal jsem chatgpt-send, ted potrebuju dostat odpoved zpet jako atom", "should_trigger": true},
+  {"query": "precti posledni chatgpt zpravu do stacku", "should_trigger": true},
+  {"query": "chci si precist co chatgpt odpvedel", "should_trigger": false},
+  {"query": "otevri chatgpt vlakno a ukazuj mi odpoved", "should_trigger": false},
+  {"query": "chatgpt-ask — potrebuju second opinion", "should_trigger": false},
+  {"query": "posli zpravu do chatgpt Legal projektu", "should_trigger": false},
+  {"query": "stack_reader precti nove atomy pro coder instanci", "should_trigger": false},
+  {"query": "tmonkey — precti nove atomy z pl_serveru", "should_trigger": false},
+  {"query": "naviguj edge na chatgpt.com a udelej screenshot", "should_trigger": false},
+  {"query": "jak funguje TM ingest pipeline?", "should_trigger": false},
+  {"query": "zkontroluj jestli chatgpt odpvedel na nasi otazku", "should_trigger": false},
+  {"query": "chatgpt odpvedel na F16 review — co rika?", "should_trigger": false},
+  {"query": "force read — projdi vsechny nove soubory v inboxu", "should_trigger": false}
+]

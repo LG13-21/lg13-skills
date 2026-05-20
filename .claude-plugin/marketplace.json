@@ -1,0 +1,16 @@
+{
+  "name": "lg13",
+  "description": "LG13 local plugins — session management, tmonkey, and instance tools",
+  "owner": {
+    "name": "Tom / LG13",
+    "email": "tomas_kopecky@seznam.cz"
+  },
+  "plugins": [
+    {
+      "name": "lg13-skills",
+      "description": "Session init/save/end and tmonkey processing for all LG13 instances",
+      "source": "./plugins/lg13-skills",
+      "category": "productivity"
+    }
+  ]
+}

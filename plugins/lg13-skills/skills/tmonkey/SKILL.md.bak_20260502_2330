@@ -1,0 +1,228 @@
+---
+name: tmonkey
+description: "Process fresh ChatGPT tmonkey exports — read inbox, identify Tom's requests [Ty:], route to instances, archive duplicates. Trigger when user says 'tmonkey', 'čti tmonkey', 'nové soubory z chatgpt', or when checking for fresh ChatGPT exports. Use this skill from ANY instance — it adapts to available file access (L:\ vs C:\Users\tom\Documents\)."
+user-invocable: true
+---
+
+# Tmonkey — ChatGPT Export Processor
+
+Zpracovává exporty z ChatGPT konverzací (Tampermonkey skript) a routuje obsah relevantním instancím.
+
+## Detekce prostředí
+
+Nejdřív zjisti kde jsi:
+
+```
+L:\LG13\inbox\chatgpt\     → plný přístup (strat, t001, coder, t005, main)
+C:\Users\tom\Documents\     → omezený přístup (legal, cowork)
+```
+
+**Test:** Zkus číst `L:\LG13\inbox\chatgpt\_meta.json`. Pokud OK → plný přístup. Pokud chyba → omezený.
+
+### Plný přístup (L:\)
+
+1. Spusť: `python L:/LG13/app/agent/tmonkey_ts_reader.py --instance <name> --tail 200 --mark-read`
+2. Čti výstup — seznam nových souborů s tail preview
+
+### Omezený přístup (jen C:\)
+
+1. Hledej soubory v `C:\Users\tom\Documents\` matching `*tampermonkey*.txt` nebo `*tmonkey*.txt`
+2. Hledej v `C:\Users\tom\Documents\tmonkey_legal\` 
+3. Čti z `C:\Users\tom\Documents\STRAT_MSG_PRO_LEGAL.md` (pokud existuje)
+4. Pro odeslání výsledků zpět: zapiš do `C:\Users\tom\Documents\instance_comm.json`
+
+## Inbox struktura
+
+Dva formáty souborů:
+
+**Nový (v1.5 Tampermonkey) — denní složky:**
+```
+inbox/chatgpt/YYYY-MM/DD/{conv_name}.txt
+```
+S META headerem:
+```
+[META] conv_id: uuid
+[META] title: název konverzace
+[META] url: https://chatgpt.com/c/...
+[META] captured: ISO timestamp
+---
+[Ty]: text uživatele
+[ChatGPT]: odpověď
+```
+
+**Starý — kořen:**
+```
+inbox/chatgpt/YYYYMMDD-HHMMSS__tampermonkey.txt
+```
+Bez META headeru, formát `[Ty]:` / `[ChatGPT]:`.
+
+**Archive:**
+- `_archive/full_{conv_id}.txt` — kompletní kopie (server ukládá automaticky)
+- `_meta.json` — interní tracking, NEMAZAT
+
+## Zpracování souborů
+
+### 1. Identifikace inkrementálních exportů
+
+Soubory ze stejné konverzace rostou (inkrementální). Porovnej první řádek + velikost — nechat jen nejnovější, starší do `_archive/`.
+
+### 2. Čtení obsahu
+
+- **Malé soubory** (<2000 řádků): čti celé
+- **Velké soubory** (2000+ řádků): hledej `[Ty:]` markery pro Tomovy požadavky, nečti celý
+- **Priorita:** Tomovy požadavky `[Ty:]` = ZADÁNÍ (diktované — překlepy, pochopit ZÁMĚR)
+- **ChatGPT odpovědi** = podklad (nemusí mít plný kontext)
+- Pokud nejasné → zeptej se Toma
+
+### 3. Routing do instancí
+
+| Obsah | Instance | Akce |
+|-------|----------|------|
+| Právní (soud, OSPOD, §, paragrafy) | legal | Zkopírovat do `C:\Users\tom\Documents\tmonkey_legal\` + task |
+| Lukáš (vzpomínky, kronika, komix) | t003 + t001 | Task |
+| Texty (kniha, pohádky, podcast) | writer | Task |
+| Tech (kód, skripty, infrastruktura) | coder | Task |
+| Web (ai-domy.cz, SEO) | web | Task |
+| LMT (hra, chatbot) | lmt | Task |
+| JCU (univerzita, Zoubek) | příslušná instance | Task |
+| Vždy | t001 | Archivace |
+
+### 4. Kopírování legal souborů
+
+Soubory týkající se právních věcí VŽDY kopírovat do `C:\Users\tom\Documents\tmonkey_legal\` — legal instance nemá přístup na L:\.
+
+### 5. Odesílání tasků
+
+```bash
+python L:/LG13/app/agent/instance_queue.py --send --to <instance> --from-inst <name> --msg "text" --priority P1
+```
+
+Z omezeného přístupu: zapsat do `C:\Users\tom\Documents\instance_comm.json`.
+
+### 6. Legal extract — šetříme Likovi tokeny (POVINNÉ pokud čteš jako strat)
+
+**Princip:** Když strat (nebo kterákoliv plnopřístupová instance) přečte tmonkey soubor, **rozdělí obsah po tématech a vyextrahuje legal-relevantní pieces do samostatného souboru**. Lik pak nemusí znova procházet 10k řádek konverzace — čte jen předzpracovaný extract a šetří tokeny i čas.
+
+**Cíl:** Lik (legal cowork) i daemon-spawnnutý `claude -p --instance legal` čtou **jen `tmonkey_legal/extracts/`**, ne původní `inbox/chatgpt/`.
+
+**Kdy spustit extract:**
+- Po každém čtení tmonkey souboru, kde se aspoň 1 [Ty:] blok týká legal/kauzy
+- Pokud je celý soubor o něčem jiném (Suno, kniha, web) → žádný extract, jen archivace
+
+**Filtry — co JE legal-relevantní:**
+- Spis. zn.: `0 P 29/2026`, `19 P a Nc 181/2026`, `181/2026`, `182/2026`, `183/2026`, `213 EX 31/26`, `12 UT 8/26`, `SPO 52/2026`, `SPO52`, `KT/241/2026`, `KUJCK`
+- Osoby/entity: OSPOD, Vlnatá, Řeřábek, JUDr. Veselý, Mgr. Flaška, Lucie / Řehoutová, Matouš / Matoušek, Volfová, ICOS, Krizové centrum, Iva Chadimová, Šimon Řehout, Bergrettung, Sendlhofer, StA Salzburg, BH St. Johann, PI Bad Hofgastein, UMPOD, ombudsman, VOP
+- Procesní pojmy: PR (prozatímní rozhodnutí), PO (předběžné opatření), AS (asistovaný styk), zákaz kontaktu, izolace, dohled, péče, výživné, kontakt, doplnění, vyjádření, reakce, přípis, lhůta, deadline, exekuce, OPL, drogový test
+- Paragrafy: `§907`, `§909`, `§888`, `§889`, `§867`, `§869`, `§875`, `§465a`, `§465c`, `§465f`, `§468b`, `§502`, `§13`, `§159a`, `§100`, NOZ, ZŘS, OSŘ, ESLP, Neulinger, Süß, Sahin
+- AT vyšetřování: Lukášek smrt, lavina, Hochalmbahn, Totenbeschaubefund, Leichenpass, Akteneinsicht, §80, §95, StGB
+
+**Filtry — co NENÍ legal-relevantní (skip):**
+- Suno / song / lyrics / album
+- Knížka / kniha / pohádka / podcast / komix
+- ai-domy.cz / SEO / web / Suno tampermonkey
+- LMT hra / chatbot
+- JCU pokud kontext NENÍ kauza (mzdová, doktorát atd.)
+- Tech / kód / skripty / infrastruktura (pokud nesouvisí s legal pipeline)
+- Vzpomínky na Lukáška jako kronika / emoce (to patří t003, ne legal)
+
+**Kde uložit:**
+```
+C:\Users\tom\Documents\tmonkey_legal\extracts\<YYYY-MM-DD>_<conv_slug>_legal.md
+```
+Plus zalogovat do `C:\Users\tom\Documents\tmonkey_legal\_extracts_log.json` (datum, source, output_path, řádky, hash) — Lik si pak zjistí co je nového.
+
+**Šablona extractu:**
+
+```markdown
+---
+source: <abs cesta k tmonkey souboru>
+source_lines: <kolik řádků měl original>
+extracted_at: <ISO timestamp>
+conv_id: <z META, pokud je>
+conv_title: <z META, pokud je>
+extracted_by: strat
+relevant_topics: [seznam témat — kauza_matousek, OSPOD, AT_vysetrovani, atd.]
+---
+
+# Legal extract — <conv_title nebo souborem název> (<datum>)
+
+## Strat summary (přečteno za Lika)
+
+<3-6 vět: o čem konverzace je, co je pro legal důležité, co Lik má dělat / vědět>
+
+## Tomovy [Ty:] požadavky (relevantní)
+
+### #1 — <krátký popis>
+> [Ty:] <přesný citát>
+
+**ChatGPT odpověď (klíčový bod):**
+<extract relevantní pasáže, ne celá odpověď>
+
+### #2 — ...
+...
+
+## Skipped (pro úplnost — nepatří legalovi)
+- Sekce o Suno / web / LMT / atd. — odkaz na original line range
+```
+
+**Pravidlo extrakce:**
+- **Tomovy požadavky** jsou priorita = ZADÁNÍ. Citovat doslovně i s překlepy (memory `feedback_tmonkey_tom_first.md`).
+- **ChatGPT odpovědi** zkrátit na klíčové body — ne celé bloky, jen co reaguje na konkrétní legal otázku.
+- **Pokud nejasné jestli to patří** → zařadit (lepší false positive než ztratit info).
+- **Pokud zpráva míchá legal + non-legal** → zařadit jen legal část, zbytek skip s odkazem na řádky originálu.
+
+**Pojmenování `<conv_slug>`:**
+- Pokud má soubor META `[META] title:` → slugify ten title (lower, ascii, max 40 chars)
+- Jinak → základ jména souboru bez `.txt` a timestamp prefixu
+
+**Příklad:**
+```
+source: L:\LG13\inbox\chatgpt\2026-04-25\legal_cowork_balik1.txt
+output: C:\Users\tom\Documents\tmonkey_legal\extracts\2026-04-25_legal_cowork_balik1_legal.md
+```
+
+**Lik (čtenář) workflow:**
+1. Strat řekne Likovi „check tmonkey extracts" nebo Lik při startu sám pull-ne `_extracts_log.json`
+2. Lik čte jen `extracts/<datum>_*_legal.md` — žádné inbox/chatgpt/ skenování
+3. Pokud Lik potřebuje detail, který není v extractu → Lik napíše stratovi „pošli mi original X" a strat dokopíruje plnou pasáž
+
+## Přístup k DB (MySQL)
+
+DB proxy: `https://luky.ai-domy.cz/api/db_proxy.php`
+Credentials: `L:\LG13\secrets\mysql.env` (nebo `C:\Users\tom\Documents\mysql.env` pro omezený přístup)
+
+```python
+import urllib.request, json
+def db_query(sql, params=None):
+    # credentials from mysql.env
+    data = json.dumps({"sql": sql, "params": params or []}).encode()
+    req = urllib.request.Request(url, data=data, headers={"Content-Type": "application/json"})
+    return json.loads(urllib.request.urlopen(req).read())
+```
+
+**Známý bug:** SELECT vrací `rows: []` i když `rowcount > 0`. INSERT funguje.
+**SSL outage:** Pokud proxy nefunguje, komunikace přes soubory.
+
+Použití: čtení tmonkey_items, chunks, insert nových záznamů.
+
+## Přístup k FTP
+
+FTP na forpsi server (ai-domy.cz / luky.ai-domy.cz):
+- Credentials: `L:\LG13\secrets\ftp.env` nebo `C:\Users\tom\Documents\ftp.env`
+- Python `ftplib` pro upload/download
+- Web soubory: `/www/luky/` (luky.ai-domy.cz), `/www/` (ai-domy.cz)
+- Použití: deploy souborů na web (komix, suno, LMT)
+
+## Co NEDĚLAT
+
+- **NEČÍST** `tmonkey_reading_flags.json` (obsolete)
+- **NEPOSÍLAT** nic ven (email/ISDS/WA) — jen drafty, viz Pravidlo č.1
+- **NEMAZAT** `_meta.json`
+- **NEPŘEPISOVAT** existující soubory v archive
+
+## Po dokončení
+
+1. Vypiš Tomovi souhrn: co bylo v souborech, kam se co poslalo
+2. Aktualizuj Daily Briefing (pokud jsi strat)
+3. Legal soubory zkopírované? Check.
+4. Archivované starší exporty? Check.

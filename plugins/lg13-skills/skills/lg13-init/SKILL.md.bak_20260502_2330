@@ -1,0 +1,94 @@
+---
+name: lg13-init
+description: "Inicializace session — načte stav, přečte frontu, tmonkey, pl_stats, vygeneruje briefing. Trigger: 'init', 'start session', 'začínáme', '/session-init', nebo automaticky na začátku každé nové konverzace. Každá instance MUSÍ spustit na začátku práce."
+user-invocable: true
+---
+
+# Session Init — Start session jakékoliv instance
+
+Povinný postup při startu session. Adaptuje se na prostředí (plný vs omezený přístup).
+
+## Detekce prostředí
+
+```
+L:\LG13\ dostupné?  → plný přístup (strat, t001, coder, t005, main, t003, web, lmt, media, writer)
+Jen C:\Users\tom\   → omezený přístup (legal, cowork)
+```
+
+## Plný přístup — kroky
+
+### 1. Tmonkey (čerstvé soubory z ChatGPT)
+
+```bash
+python L:/LG13/app/agent/tmonkey_ts_reader.py --instance <name> --tail 200 --mark-read
+```
+
+Pokud existuje `L:\LG13\runtime\ops\chatgpt_new_flag.json` → prioritně přečti soubor z `file`, smaž flag.
+
+### 2. Tmonkey process
+
+```bash
+python L:/LG13/app/agent/tmonkey_process.py --fetch --project lg13
+python L:/LG13/app/agent/tmonkey_process.py --fetch --project all
+```
+
+### 3. Instance karta
+
+```bash
+python L:/LG13/app/agent/instance_manager.py --cards --name <name>
+```
+
+### 4. Task queue
+
+```bash
+python L:/LG13/app/agent/instance_queue.py --check --name <name>
+```
+
+Pokud jsou pending tasky → vypsat, případně claimnout.
+
+### 5. PL stats
+
+```bash
+curl -s http://localhost:8790/pl/stats
+```
+
+Pokud nefunguje → spustit server:
+```bash
+powershell -Command "Start-Process python -ArgumentList 'L:\LG13\app\agent\pl_server.py' -WindowStyle Hidden"
+```
+
+### 6. Strat-specific: Daily Briefing
+
+Jen pro strat: po přečtení všeho → vytvořit/aktualizovat `briefs/YYYY-MM-DD.md` a vypsat Tomovi.
+
+Coordination blokátory:
+```bash
+curl -s http://localhost:8790/pl | python -c "import json,sys; items=json.load(sys.stdin)['items']; [print(i['pl_id'], i['title']) for i in items if i.get('category')=='coordination' and i.get('action_status') not in ('IGNORED','APPROVED')]"
+```
+
+## Omezený přístup (C:\ only) — kroky
+
+### 1. Tmonkey soubory
+
+Hledej v:
+- `C:\Users\tom\Documents\tmonkey_legal\` (legal soubory)
+- `C:\Users\tom\Documents\*tampermonkey*.txt`
+- `C:\Users\tom\Documents\STRAT_MSG_PRO_LEGAL.md` (zprávy od strat)
+
+### 2. Instance komunikace
+
+Přečti `C:\Users\tom\Documents\instance_comm.json` — čekající zprávy/tasky.
+
+### 3. Stav
+
+Přečti lokální CLAUDE.md pro kontext instance.
+
+## Po init
+
+Vypiš Tomovi stručný přehled:
+- Kolik nových tmonkey souborů
+- Kolik pending tasků
+- Co je urgentní / hoří
+- Blokátory
+
+Pak čekej na pokyn.

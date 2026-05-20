@@ -1,0 +1,69 @@
+---
+name: session-end
+description: "Ukončení session — uloží stav, aktualizuje CLAUDE.md, pošle report strat, compact. Trigger: 'session end', 'konec session', 'ukonči session', 'zavíráme', '/session-end', nebo když dochází context window (80%+). Každá instance by měla spustit před ukončením práce."
+---
+
+# Session End — Uložení stavu a report
+
+Povinný postup při ukončení session jakékoliv instance.
+
+## 1. Uložení rozpracovaných úkolů
+
+Pro každý rozpracovaný task v queue:
+```bash
+python L:/LG13/app/agent/instance_queue.py --fail --id <ID> --error "Session end: <popis stavu rozpracování>"
+```
+
+Pokud task je skoro hotový — radši dokonči než failovat.
+
+## 2. Aktualizace CLAUDE.md
+
+Zkontroluj jestli se během session něco změnilo:
+- Nové endpointy, cesty, pravidla
+- Nové instance, workflow, nástroje
+- Opravené bugy, zjištěné problémy
+- Nové kontakty, sp.zn., termíny
+
+Pokud ano → aktualizuj lokální CLAUDE.md (instance-specific).
+
+Pro parent `L:\Lukasek\CLAUDE.md` — měň jen pokud jde o sdílenou architekturu/pravidla (ne instance-specific věci).
+
+## 3. Report do strat
+
+Pošli strat souhrn co se udělalo:
+
+```bash
+python L:/LG13/app/agent/instance_queue.py --send --to strat --from-inst <name> --msg "SESSION REPORT <name> <datum>:
+HOTOVO: <co se dokončilo>
+ROZPRACOVÁNO: <co zůstalo nedokončené + stav>
+PROBLÉMY: <co nefungovalo, blokátory>
+DŮLEŽITÉ: <co by měl strat/Tom vědět>" --priority P2
+```
+
+**Z omezeného přístupu** (legal, cowork): zapsat do `C:\Users\tom\Documents\instance_comm.json` nebo `STRAT_LATEST_MSG.md`.
+
+## 4. Kontrola fronty
+
+```bash
+python L:/LG13/app/agent/instance_queue.py --check --name <name>
+```
+
+Pokud tam zůstaly pending tasky — zmínit v reportu.
+
+## 5. Compact
+
+Po dokončení kroků 1-4 spusť `/compact` OKAMŽITĚ bez ptaní.
+
+## Kdy spustit automaticky
+
+- Context window na 80%+ → pozastavit P2/P3 práci, spustit session-end
+- Tom říká "zavíráme" / "konec" / "to je pro dnešek vše"
+- Před delší pauzou (Tom odchází)
+
+## Z omezeného přístupu (C:\ only)
+
+Pokud nemáš přístup na L:\:
+1. Zapiš stav do `C:\Users\tom\Documents\SESSION_REPORT_<name>_<datum>.md`
+2. Zapiš do `instance_comm.json` pro strat
+3. CLAUDE.md aktualizuj lokálně (v Documents pokud je tam kopie)
+4. `/compact`

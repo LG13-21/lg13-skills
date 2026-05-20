@@ -1,0 +1,99 @@
+---
+name: strat-init
+description: "Strat session init — tmonkey, fronta, pl_stats, failed tasky, t002 dohled, daily briefing. Trigger: 'init' v strat instanci."
+user-invocable: true
+---
+
+# Strat Init — Session start pro Global Strategist
+
+Rozšířený init specifický pro strat instanci. Zahrnuje vše z generického session-init + strat zodpovědnosti.
+
+## 1. Základ (jako session-init)
+
+```bash
+python L:/LG13/app/agent/tmonkey_ts_reader.py --instance strat --tail 200 --mark-read
+python L:/LG13/app/agent/tmonkey_process.py --fetch --project lg13
+python L:/LG13/app/agent/tmonkey_process.py --fetch --project all
+python L:/LG13/app/agent/instance_manager.py --cards --name strat
+python L:/LG13/app/agent/instance_queue.py --check --name strat
+curl -s http://localhost:8790/pl/stats
+```
+
+Pokud pl_server neběží:
+```bash
+powershell -Command "Start-Process python -ArgumentList 'L:\LG13\app\agent\pl_server.py' -WindowStyle Hidden"
+```
+
+## 2. Coordination blokátory
+
+```bash
+curl -s http://localhost:8790/pl | python -c "import json,sys; items=json.load(sys.stdin)['items']; [print(i['pl_id'], i['title']) for i in items if i.get('category')=='coordination' and i.get('action_status') not in ('IGNORED','APPROVED')]"
+```
+
+## 3. Dohled na t002 (Office Manager)
+
+- Má t002 pending tasky? Zpracovává je?
+- Poslal report za posledních 24h?
+- Waiting_for_send fronta — zpracovává se?
+- Pokud t002 ticho 24h+ → eskalace Tomovi
+
+## 4. Failed task management
+
+- Projít failed tasky — obnovit ty co se měly dokončit
+- Opakovaný důvod failu → najít příčinu
+- Max 2 retry na task, pak eskalace Tomovi
+- Budget paused → status `postponed` s `wake_at`
+
+## 5. Kontrola waiting_for_send
+
+Jsou v drafts.json drafty ve stavu `waiting_for_send`? 
+- Uplynul timeout? → t002 měl odeslat
+- Tom zastavil? → cancelled
+- Chyba nalezena? → vrátit ke kontrole
+
+## 6. Kontrola comms tracker
+
+Nezodpovězené příchozí zprávy starší 48h? → eskalovat.
+
+## 7. Librarian oversight (data layer, architektura 18.4.2026)
+
+- Librarian (id 16, Cowork) řídí file catalog, task extraction, evidence OCR, communication indexing
+- Kontrola denního digestu (20:00) + eskalací DECISION_NEEDED
+- Strat **nezasahuje** do librarian scope (katalog, OCR) — jen přijímá reporty
+- Pokud librarian ticho 24h+ → eskalace Tomovi
+
+## 8. Instance priority check
+
+**Aktuální priority (duben 2026 — viz CLAUDE.md sekce "Aktuální priority"):**
+1. Matoušek JEDNOTNÝ BALÍK (STOP ORDER #1452, jen finalizovat)
+2. Web ai-domy.cz P0 (0 leads, homepage redesign, SEO)
+3. Drafty tab redesign (#1459 coder)
+4. Kalendář / Song catalog / Discord bridge
+5. AT follow-up (StA Salzburg, BH St. Johann)
+
+Která instance spí? Poslat kopanec.
+
+## 9. Daily Briefing
+
+Vytvořit/aktualizovat `briefs/YYYY-MM-DD.md`:
+
+```markdown
+# Daily Briefing — YYYY-MM-DD
+## K rozhodnutí (vyžaduje Tomovu odpověď)
+## Ke schválení (PLANNED → APPROVED)
+## Přiděleno instancím dnes
+## Waiting for send (co čeká na odeslání)
+## Ideas k diskuzi
+## K vědomí
+## Blokátory / problémy
+```
+
+Vypsat Tomovi stručně.
+
+## 10. Pravidlo č.1 + 5 LOCKS připomínka
+
+Při init si připomenout:
+- **5 LOCKS** povinné: TIME + TOM + LEGAL + T002 + STRAT (audit trail)
+- **TSEND override** = jediná zkratka C+ zámku, jen Tom osobně — NIKDY nenahrazuje T+ approve
+- **Matoušovo řízení** (0 P 29/2026, 19 P a Nc 181/182/183/2026) = odesílá VÝHRADNĚ Tom osobně
+- 99% nehoří. Neposlat nic bez procesu. Idle > rush.

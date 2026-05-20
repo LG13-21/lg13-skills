@@ -1,0 +1,59 @@
+---
+name: strat-save
+description: "Strat session save — checkpoint s progress reportem, CLAUDE.md update, t002 dohled, waiting_for_send check, compact. Bez ptaní."
+user-invocable: true
+---
+
+# Strat Save — Průběžný checkpoint pro strat
+
+Rozšířený save specifický pro strat. Vše provést automaticky BEZ PTANÍ, pak compact.
+
+## 1. Progress zápis
+
+```bash
+python L:/LG13/app/agent/instance_queue.py --send --to strat --from-inst strat --msg "CHECKPOINT strat <datum>:
+HOTOVO: <co se dokončilo>
+ROZPRACOVÁNO: <co zůstalo + stav>
+AKTIVNÍ TASKY: <seznam nezavřených task IDs + krátký popis>
+NEXT: <co je další>" --priority P3
+```
+
+## 2. CLAUDE.md update
+
+Zkontrolovat jestli se změnilo:
+- Nové pravidlo / workflow
+- Nový endpoint / cesta
+- Nová instance / role
+- Aktualizace priorit
+- Nové kontakty / sp.zn. / termíny
+
+Pokud ano → zapsat do `L:\Lukasek\T000_Strat\CLAUDE.md` (strat-specific) nebo `L:\Lukasek\CLAUDE.md` (sdílené).
+
+## 3. Waiting_for_send check
+
+Jsou drafty čekající na odeslání? Report stav.
+
+## 4. t002 dohled
+
+t002 aktivní? Zpracovává frontu? Report pokud ticho.
+
+## 4b. Librarian oversight
+
+Librarian (id 16) posílá denní digest 20:00 — poslední digest přišel? DECISION_NEEDED eskalace? Report.
+
+## 5. Open questions update
+
+Aktualizovat `open_questions.md` pokud přibyly nové věci k rozhodnutí.
+
+## 6. Compact
+
+Spustit `/compact` OKAMŽITĚ. Session-save je bezpečný — nic se neztrácí. NIKDY se neptat.
+
+## Auto-save trigger
+
+Save se spouští **bez čekání na Toma** za jedné z podmínek:
+- Context window ≥ 60%
+- Každých ~10 zpráv od posledního save
+- Před dlouhým taskem (bulk tmonkey, velký legal analysis, mnoho file operací)
+
+Strat sám proaktivně volá strat-save. Viz memory `feedback_auto_save_trigger.md`.
