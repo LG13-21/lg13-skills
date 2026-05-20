@@ -3,7 +3,7 @@
 > Auto-generated from SKILL.md frontmatter. Edit skills, not this table.
 > To regenerate: `python scripts/gen_registry.py`
 
-**Total skills: 46**
+**Total skills: 47**
 
 | Skill | Description | Status | User-invocable |
 |-------|-------------|--------|----------------|
@@ -12,6 +12,7 @@
 | `autosave` | "Auto-save + auto-compact při 15-25% zbývajícího kontextu. Dokončí rozdělanou věc, uloží s | stable | yes |
 | `avengers` | Team terminator — multiple instances collaborate on shared goal list. Director dispatches, | experimental | yes |
 | `budget-manager` | "Řízení token budgetu napříč LG13 instancemi. Instance s touto rolí čte aktuální spotřebu, | stable | yes |
+| `budget-watchdog` | Proactive token budget monitoring. Watches weekly/session limits, sends alerts, enforces t | experimental | yes |
 | `chatgpt-ask` | "Posle otazku ChatGPT a ziska odpoved zpet jako LG13 atom. Pouzij kdyz instance potrebuje  | stable | yes |
 | `chatgpt-find` | "Vyhledá vlákna v ChatGPT historii přes CDP + Playwright search form. Vrátí seznam threadů | stable | yes |
 | `chatgpt-force-read` | "Prinuti TM (Tampermonkey) aby precetl a ingestoval ChatGPT vlakno — naviguje Edge na thre | stable | no |
