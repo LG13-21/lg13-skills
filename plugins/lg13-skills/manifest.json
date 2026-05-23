@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0",
+  "doc": "Lazy-loading manifest for lg13-skills (Issue #45 Phase 1). Hot = always resident, Cold = fetched on-demand via Skill tool keyword/explicit trigger.",
+  "default_strategy": "lazy",
+  "hot": {
+    "doc": "Always loaded at lg13-init. Core session lifecycle + comms + budget monitoring.",
+    "skills": [
+      {"name": "lg13-init", "tokens": 232, "role": "session_lifecycle"},
+      {"name": "lg13-save", "tokens": 211, "role": "session_lifecycle"},
+      {"name": "lg13-end", "tokens": 228, "role": "session_lifecycle"},
+      {"name": "save-min", "tokens": 356, "role": "session_lifecycle"},
+      {"name": "ping-pong", "tokens": 3264, "role": "comms"},
+      {"name": "heartbeat", "tokens": 1022, "role": "comms"},
+      {"name": "slack-listen", "tokens": 766, "role": "comms"},
+      {"name": "tmonkey-arm", "tokens": 625, "role": "comms"},
+      {"name": "token-limit-read", "tokens": 890, "role": "budget"},
+      {"name": "edge-check", "tokens": 349, "role": "budget"},
+      {"name": "budget-manager", "tokens": 1071, "role": "budget"}
+    ]
+  },
+  "hot_strat_only": {
+    "doc": "Hot ONLY for strat instance (added on top of common hot).",
+    "skills": [
+      {"name": "strat-init", "tokens": 239},
+      {"name": "strat-save", "tokens": 182},
+      {"name": "strat-end", "tokens": 186}
+    ]
+  },
+  "cold": {
+    "doc": "On-demand fetch. Loader matches keywords from user msg OR explicit /skill invocation.",
+    "skills": [
+      {"name": "filing-pipeline", "tokens": 3032, "triggers": ["filing", "pipeline", "podání pipeline"]},
+      {"name": "lare", "tokens": 2334, "triggers": ["lare", "legal análýza"]},
+      {"name": "chatgpt-force-read", "tokens": 2119, "triggers": ["force read", "tm force", "ingest thread"]},
+      {"name": "chatgpt-send", "tokens": 2041, "triggers": ["chatgpt send", "send to gpt"]},
+      {"name": "chatgpt-ask", "tokens": 727, "triggers": ["chatgpt ask", "zeptej se gpt"]},
+      {"name": "chatgpt-find", "tokens": 907, "triggers": ["chatgpt find", "najdi v gpt"]},
+      {"name": "chatgpt-search", "tokens": 822, "triggers": ["chatgpt search"]},
+      {"name": "locks-workflow", "tokens": 1951, "triggers": ["lock", "locks", "lock 2", "lock 5"]},
+      {"name": "legal-total-analysis", "tokens": 1900, "triggers": ["total analysis", "celková analýza"]},
+      {"name": "isds", "tokens": 1585, "triggers": ["isds", "datovka", "datová schránka"]},
+      {"name": "zero-tokens", "tokens": 1551, "triggers": ["zero tokens", "token-free"]},
+      {"name": "autosave", "tokens": 1549, "triggers": ["autosave"]},
+      {"name": "budget-watchdog", "tokens": 1546, "triggers": ["budget watchdog"]},
+      {"name": "tmonkey-web", "tokens": 1318, "triggers": ["tmonkey web", "tm web"]},
+      {"name": "prtsc", "tokens": 1201, "triggers": ["prtsc", "screenshot", "screen"]},
+      {"name": "tmonkey", "tokens": 1192, "triggers": ["tmonkey", "tampermonkey"]},
+      {"name": "plan-to-git", "tokens": 1055, "triggers": ["plan to git", "plan->git"]},
+      {"name": "team-launcher", "tokens": 1027, "triggers": ["team launcher", "launch team"]},
+      {"name": "avengers", "tokens": 975, "triggers": ["avengers"]},
+      {"name": "issue-sync", "tokens": 969, "triggers": ["issue sync", "gh issue", "github issue"]},
+      {"name": "tmonkey-monitor", "tokens": 923, "triggers": ["tmonkey monitor"]},
+      {"name": "terminator", "tokens": 876, "triggers": ["terminator", "kill instance"]},
+      {"name": "skill-creator", "tokens": 837, "triggers": ["create skill", "skill creator"]},
+      {"name": "tmonkey-diag", "tokens": 756, "triggers": ["tmonkey diag"]},
+      {"name": "atom-search", "tokens": 749, "triggers": ["atom search", "atom find"]},
+      {"name": "tool-picker", "tokens": 728, "triggers": ["tool picker", "pick tool"]},
+      {"name": "file-catalog-search", "tokens": 672, "triggers": ["file catalog", "catalog search"]},
+      {"name": "action-telemetry", "tokens": 645, "triggers": ["telemetry", "action log"]},
+      {"name": "deferred-plans", "tokens": 625, "triggers": ["deferred", "deferred plans"]},
+      {"name": "tmonkey-listen", "tokens": 625, "triggers": ["tmonkey listen"]},
+      {"name": "git-tmonkey-search", "tokens": 612, "triggers": ["git tmonkey", "tm git search"]},
+      {"name": "ocr-git", "tokens": 595, "triggers": ["ocr git", "ocr"]},
+      {"name": "rag-search", "tokens": 591, "triggers": ["rag", "rag search"]},
+      {"name": "web-up", "tokens": 560, "triggers": ["web up", "web stack up"]}
+    ]
+  },
+  "totals": {
+    "hot_common_tokens": 9014,
+    "hot_strat_extra_tokens": 607,
+    "cold_tokens": 36486,
+    "all_tokens_if_eager": 45500,
+    "savings_pct_lazy": 80
+  },
+  "loader_protocol": {
+    "doc": "How session_manager.py --lazy-skills uses this manifest.",
+    "steps": [
+      "1. Read manifest.json",
+      "2. Compute hot set = hot.skills + (if instance==strat: hot_strat_only.skills)",
+      "3. Inject hot SKILL.md contents into session context",
+      "4. Cold skills not loaded — surfaced only when: (a) user message matches trigger keyword via simple substring/regex, (b) explicit /lg13-skills:<name> invocation, (c) Skill tool called by name",
+      "5. On cold trigger: load that single SKILL.md, mark as 'warm' (resident for rest of session)",
+      "6. After /compact, warm set resets — only hot remains"
+    ],
+    "fallback": "If manifest.json missing or malformed → load all skills (eager mode, current behavior)."
+  }
+}
