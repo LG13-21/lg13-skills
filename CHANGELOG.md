@@ -4,6 +4,11 @@ Format: `## [date] — title`
 
 ---
 
+## [2026-05-28] — add deep-read-full
+- New skill `deep-read-full`: spustí deep_read --full-read pro aktuální instanci; čte plný text nových zpráv (ne jen diamonds)
+
+---
+
 ## [2026-05-20] — Initial release
 
 - Bulk import of 41 existing skills from local marketplace (previously unversioned)
