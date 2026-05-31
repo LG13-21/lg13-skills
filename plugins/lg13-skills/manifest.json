@@ -62,7 +62,8 @@
       {"name": "git-tmonkey-search", "tokens": 612, "triggers": ["git tmonkey", "tm git search"]},
       {"name": "ocr-git", "tokens": 595, "triggers": ["ocr git", "ocr"]},
       {"name": "rag-search", "tokens": 591, "triggers": ["rag", "rag search"]},
-      {"name": "web-up", "tokens": 560, "triggers": ["web up", "web stack up"]}
+      {"name": "web-up", "tokens": 560, "triggers": ["web up", "web stack up"]},
+      {"name": "github-actions-if-yaml", "tokens": 350, "triggers": ["github actions if", "workflow if condition", "job skipped", "if multiline", "startsWith workflow", ">-"]}
     ]
   },
   "totals": {
