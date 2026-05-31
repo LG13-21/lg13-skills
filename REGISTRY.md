@@ -3,12 +3,14 @@
 > Auto-generated from SKILL.md frontmatter. Edit skills, not this table.
 > To regenerate: `python scripts/gen_registry.py`
 
-**Total skills: 72**
+**Total skills: 77**
 
 | Skill | Description | Status | User-invocable |
 |-------|-------------|--------|----------------|
 | `action-telemetry` | "Log akci + report top actions + share přes ping_pong. Tom 2026-05-10 cost optimization pr | stable | yes |
 | `atom-search` | "Vyhledá atomy z konkrétní ChatGPT konverzace (conv_id) nebo dle instance/time window, seř | stable | yes |
+| `attachment-pipeline` | Orchestrator pro přílohy soudního podání — volá attachment-score, deferred-plans, filing-p | stable | yes |
+| `attachment-score` | Ohodnotí přílohy soudního podání (PDF/PNG) dle síly důkazu, relevance a stavu. Výstup: sco | stable | yes |
 | `autosave` | "Auto-save + auto-compact při 15-25% zbývajícího kontextu. Dokončí rozdělanou věc, uloží s | stable | yes |
 | `avengers` | Team terminator — multiple instances collaborate on shared goal list. Director dispatches, | experimental | yes |
 | `avengers-meeting` | This skill should be used when the user says "avengers meeting", "team planning", "team st | stable | no |
@@ -21,11 +23,14 @@
 | `chatgpt-send` | "Posle zpravu do ChatGPT vlakna pres Playwright CDP — ovlada Edge prohlizec a zapise zprav | stable | yes |
 | `cockpit` | This skill should be used when the user asks to "show cockpit", "operation board", "status | stable | no |
 | `compact-check` | "Soft/Hard compact range checker. Vrátí zone (green/soft/hard/over) + action + recommendat | stable | yes |
+| `cti-cele` | "Přečte celý long soubor (ChatGPT export, JSON, TXT, MD) v iteracích a extrahuje diamonds/ | stable | yes |
 | `deep-read` | Systematické pomalé čtení VŠECH kanálů (issues + komentáře, ChatGPT exporty zpráva po zprá | stable | no |
 | `deep-read-full` | Spustí deep_read --full-read pro aktuální instanci. Čte plný text nových zpráv od cursoru  | stable | yes |
 | `deferred-plans` | "Uloží nedokončený nebo odložený plán do gitu, aby ho příští session mohla zvednout. Trigg | stable | yes |
 | `diamond-pick` |  | stable | no |
 | `diamond-sentry` | "Autonomní diamond extraction — projde soubory/issues/chaty, detekuje compressed insights, | stable | yes |
+| `diamond-to-matrix` | "Převede diamonds.json (z diamond-sentry nebo diamond-pick) na prioritizovanou CHANGE_MATR | stable | yes |
+| `doc-polish` | "Spustí filing pipeline OD PROSTŘEDKA — re-run analýz jen na problémech z předchozího kola | stable | yes |
 | `edge-check` | "Edge-to-autocompact zone check. Spočítá zone (green/yellow/orange/red) + action + turns_r | stable | yes |
 | `email-read` | Use when the user wants to read, search, or check emails from seznam.cz or Outlook. Trigge | stable | no |
 | `file-catalog-search` | "Najít soubor přes librarian instance místo manual Glob. Standardizovaný entrypoint pro ev | stable | yes |

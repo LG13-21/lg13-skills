@@ -4,6 +4,12 @@ Format: `## [date] — title`
 
 ---
 
+## [2026-05-31] — add attachment-score + attachment-pipeline
+- New skill `attachment-score`: hodnotí PDF/PNG přílohy soudního podání dle síly důkazu + relevance (scoring KEEP/DROP/CONSOLIDATE/DEFER)
+- New skill `attachment-pipeline`: orchestrator volající attachment-score → deferred-plans → filing-pipeline; pokrývá celou pipeline příloh
+
+---
+
 ## [2026-05-28] — add deep-read-full
 - New skill `deep-read-full`: spustí deep_read --full-read pro aktuální instanci; čte plný text nových zpráv (ne jen diamonds)
 
