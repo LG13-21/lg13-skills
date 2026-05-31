@@ -4,6 +4,9 @@ Format: `## [date] — title`
 
 ---
 
+## [2026-05-31] — add consistency-check + attachment-score + attachment-pipeline
+- New skill `consistency-check`: automatický check dat/dní/§§ v MD dokumentu před renderem; TDD RED evidence z LOCK 1 F29 auditu (datum stale, 121→122 dní)
+
 ## [2026-05-31] — add attachment-score + attachment-pipeline
 - New skill `attachment-score`: hodnotí PDF/PNG přílohy soudního podání dle síly důkazu + relevance (scoring KEEP/DROP/CONSOLIDATE/DEFER)
 - New skill `attachment-pipeline`: orchestrator volající attachment-score → deferred-plans → filing-pipeline; pokrývá celou pipeline příloh

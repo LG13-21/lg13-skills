@@ -3,7 +3,7 @@
 > Auto-generated from SKILL.md frontmatter. Edit skills, not this table.
 > To regenerate: `python scripts/gen_registry.py`
 
-**Total skills: 77**
+**Total skills: 79**
 
 | Skill | Description | Status | User-invocable |
 |-------|-------------|--------|----------------|
@@ -23,6 +23,7 @@
 | `chatgpt-send` | "Posle zpravu do ChatGPT vlakna pres Playwright CDP — ovlada Edge prohlizec a zapise zprav | stable | yes |
 | `cockpit` | This skill should be used when the user asks to "show cockpit", "operation board", "status | stable | no |
 | `compact-check` | "Soft/Hard compact range checker. Vrátí zone (green/soft/hard/over) + action + recommendat | stable | yes |
+| `consistency-check` | Use when a legal filing document may have stale dates, wrong day counts, or paragraph inco | stable | yes |
 | `cti-cele` | "Přečte celý long soubor (ChatGPT export, JSON, TXT, MD) v iteracích a extrahuje diamonds/ | stable | yes |
 | `deep-read` | Systematické pomalé čtení VŠECH kanálů (issues + komentáře, ChatGPT exporty zpráva po zprá | stable | no |
 | `deep-read-full` | Spustí deep_read --full-read pro aktuální instanci. Čte plný text nových zpráv od cursoru  | stable | yes |
@@ -37,6 +38,7 @@
 | `filing-pipeline` | "Kompletni pipeline pro pripravu pravniho podani. Phase 1 = Build (konsolidace, struktura, | stable | no |
 | `ftp` | FTP upload/download/list na ftpx.forpsi.com (luky.ai-domy.cz). Trigger: "/ftp upload", "/f | stable | no |
 | `git-tmonkey-search` | "Search v L:/GitHub/lg13-tampermonkey/ repo (userscripts) přes gh CLI + Grep fallback. Tri | stable | yes |
+| `github-actions-if-yaml` | Use when writing GitHub Actions job or step `if:` conditions with multiple expressions joi | stable | no |
 | `heartbeat` | Keep-alive ping-pong loop + keep-awake clause. Triggers: 'heartbeat', 'keep awake', 'stay  | stable | yes |
 | `i-can-hear-u` |  | stable | no |
 | `isds` | > | stable | no |
