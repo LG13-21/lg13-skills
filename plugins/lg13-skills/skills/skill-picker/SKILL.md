@@ -152,6 +152,7 @@ Co chceš udělat?
 | Skill | Trigger | Popis | Kdo |
 |-------|---------|-------|-----|
 | `/atom-search` | hledat v atomech | FTS search v atomizovaných dokumentech | all |
+| `/deep-read` | důkladné čtení všech kanálů | Pomalé čtení ChatGPT/issues/atoms zprávu po zprávě, cursor per zdroj, čtenářský deník + TODO list | all |
 | `/git-tmonkey-search` | hledat v tmonkey historii | Prohledávání git/tmonkey exportů | all |
 | `/chatgpt-search` | hledat v ChatGPT | Vyhledat v ChatGPT konverzacích (tmonkey index) | all |
 | `/chatgpt-find` | najít v ChatGPT | Cílenější find v ChatGPT než search | all |
@@ -278,3 +279,4 @@ Co chceš udělat?
 - `/tool-picker` — která technická tool použít (Bash vs Read vs Grep atd.)
 - `/skill-creator` — jak vytvořit nový skill
 - `C:/Users/tom/.claude/plugins/marketplaces/lg13/plugins/lg13-skills/skills/` — adresář všech skills
+

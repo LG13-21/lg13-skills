@@ -1,54 +1,13 @@
 ---
 name: session-end
-description: "Ukončení session — uloží stav, aktualizuje CLAUDE.md, pošle report strat, compact. Trigger: 'session end', 'konec session', 'ukonči session', 'zavíráme', '/session-end', nebo když dochází context window (80%+). Každá instance by měla spustit před ukončením práce."
+description: "Ukončení session. Alias pro restart. Trigger: 'session end', 'konec session', 'ukonči session', 'zavíráme', '/session-end'."
+user-invocable: true
 ---
 
-# Session End — Uložení stavu a report
+# Session End — Alias pro /lg13-skills:restart
 
-## PURPOSE
+> **Alias skill.** Ukončení session = restart workflow.
 
-Bezpečné ukončení práce instance.
+Viz `/lg13-skills:restart` — plná dokumentace tam.
 
----
-
-## EXECUTION
-
-Vyvolej:
-
-```
-python L:/LG13/app/agent/session_manager.py --mode end --instance <name>
-```
-
----
-
-## CO SE STANE
-
-1. Uloží stav rozpracovaných tasků
-2. Pošle report do strat
-3. Zkontroluje queue
-4. Uloží změny
-5. Provede cleanup
-
----
-
-## OUTPUT
-
-Krátký report:
-- hotovo
-- rozpracováno
-- problémy
-
----
-
-## RULES
-
-- Neřeší detaily — deleguje na python
-- Neprovádí změny mimo scope
-- Vždy ukončit clean
-
----
-
-## FINAL
-
-Po dokončení:
-→ spusť /compact
+Pořadí: save-to-store → remember → clear/nové okno → load-from-store → remember

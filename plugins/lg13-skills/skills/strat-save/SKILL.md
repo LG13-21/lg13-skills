@@ -1,53 +1,12 @@
 ---
 name: strat-save
-description: "Strat session save — checkpoint s progress reportem, CLAUDE.md update, t002 dohled, waiting_for_send check, compact. Bez ptání."
+description: "Strat session save — checkpoint. Alias pro save-min (strat varianta). Trigger: 'save', 'ulož stav', 'checkpoint'."
 user-invocable: true
 ---
 
-# Strat Save — Průběžný checkpoint pro strat
+# Strat Save — Alias pro /lg13-skills:save-min
 
-## PURPOSE
+> **Alias skill.** Stejná funkcionalita jako save-min, pro strat instanci.
 
-Uložit progress bez ukončení session.
-
----
-
-## EXECUTION
-
-Spusť:
-
-```
-python L:/LG13/app/agent/session_manager.py --mode strat-save
-```
-
----
-
-## CO SE STANE
-
-- uloží progress strat
-- zkontroluje stav systému (queue, t002, waiting)
-- připraví checkpoint report
-
----
-
-## OUTPUT
-
-Stručně:
-- co je hotovo
-- co běží
-- co čeká
-- blokátory
-
----
-
-## RULES
-
-- strat neprovádí operace
-- pouze ukládá stav
-- deleguje vše na python
-
----
-
-## FINAL
-
-→ /compact
+Viz `/lg13-skills:save-min` — plná dokumentace tam.
+Instance: `strat`

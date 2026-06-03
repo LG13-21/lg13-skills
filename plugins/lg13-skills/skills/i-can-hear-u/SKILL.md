@@ -21,7 +21,7 @@ Auto-detect instance z cwd (lg13-coder → coder, legal-ship-2026 → legal, T00
 python L:/LG13/app/agent/listen_aggregator.py --instance <inst>
 ```
 
-Pouzij `run_in_background: true`. Output bude: `[listen] start instance=<inst> sources=[pingpong, slack, tmonkey, github, plserver, queue, chatgpt]`.
+Pouzij `run_in_background: true`. Output bude: `[listen] start instance=<inst> sources=[pingpong, slack, tmonkey, github, plserver, queue, chatgpt, atoms]`.
 
 Pokud uz bezi: `[listen] daemon already running pid=<N> for <inst>` — to je OK, pokracuj na Krok 2.
 
@@ -38,7 +38,7 @@ tail -n 0 -F L:/LG13/runtime/ops/wake_signal/<inst>.jsonl 2>&1 | grep --line-buf
 Parametry Monitor toolu:
 - `persistent: true` (drz az do session end)
 - `timeout_ms: 3600000` (1h safety)
-- `description: "<inst> wake_signal stream (chatgpt/github/pingpong/queue/slack/tmonkey/plserver)"`
+- `description: "<inst> wake_signal stream (atoms/chatgpt/github/pingpong/queue/slack/tmonkey/plserver)"`
 
 `-n 0` = ignoruj historii, jen nove eventy od TEDka. `-F` = follow + retry pokud soubor rotuje. Grep `"source"` zachyti vsechny JSON eventy (kazdy ma `"source": ...` field).
 
