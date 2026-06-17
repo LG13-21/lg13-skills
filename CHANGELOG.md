@@ -4,6 +4,12 @@ Format: `## [date] — title`
 
 ---
 
+## [2026-06-18] — add self-context-slim-update
+- New skill `self-context-slim-update`: Optimize session context by restructuring memory (user/feedback/project/reference/case_fact/_archive) without destructive /compact; reduces token overhead 60-75% (13KB→3.5KB index); extends runway by 2-5 turns
+- Tested in legal-ship-2026 session; TDD passing
+
+---
+
 ## [2026-05-31] — add consistency-check + attachment-score + attachment-pipeline
 - New skill `consistency-check`: automatický check dat/dní/§§ v MD dokumentu před renderem; TDD RED evidence z LOCK 1 F29 auditu (datum stale, 121→122 dní)
 
