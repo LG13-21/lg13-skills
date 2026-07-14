@@ -1,6 +1,6 @@
 # Listen-to-the-Music — Multi-channel wake aggregator
 
-> Alias: `/i-can-hear-u` (same skill, kratší jméno).
+> `/i-can-hear-u` je širší startup skill (8 kroků: daemon+Monitor+CGE+CDC+issues+Jarvis+PRTSC+handoff sem) — jeho Krok 8 volá TUTO skill, pokud dorazí nový materiál. Tahle skill = (a) architektura daemon/Monitor kanálů níže + (b) sekce "PROCEDURE: New-Research Ingestion Pipeline" (čtení→extrakce→prioritizace→aplikace→polish).
 
 ## PURPOSE
 
@@ -177,3 +177,55 @@ A pridat `"myfoo"` do `DEFAULT_SOURCES` v `listen_aggregator.py`.
 ## FINAL
 
 → Spust daemon → arm Monitor → vsechny kanaly hlidane → wake na cokoliv → pokracuj v praci.
+
+---
+
+## PROCEDURE: New-Research Ingestion Pipeline ("Final Read")
+
+> Zdroj: Tom, 2026-07-12 — "je to rezim, ktery pouzivame casto". Spoustet pokazde, kdyz dorazi novy material (novy CGE/CDC soubor, nove ChatGPT vlakno, novy diktat) a je potreba ho dostat z "precteno" az po "zapracovano do podani".
+
+Ctyri faze. Kazda faze ma jasny vstup/vystup, aby se nepreskakovalo (viz `lazy_boy`/`atom-read-all` — kazdy wake event/material se cte cely, ne "neni pro mne").
+
+```
+FAZE 0: CTENI  →  FAZE 1: EXTRAKCE  →  FAZE 2: PRIORITIZACE  →  FAZE 3: APLIKACE  →  FAZE 4: POLISH
+(cely material)   (diamondy+judi)      (change-matrix rank)    (change-discipline)   (post-edit verify)
+```
+
+### FAZE 0 — Čtení (dokud není hotovo, nepokračuj)
+
+- `cti-cele` — celý dlouhý soubor (ChatGPT export/JSON/TXT) po iteracích, ne jen výtažek
+- `atom-read-all` (alias `lazy_boy`) — enforcement: každý atom/wake event se čte celý, žádné "není pro mě" bez přečtení
+- Pro known-cursor zdroje (deep_read_config.json) místo cti-cele: `deep-read` / `deep-read-full`
+
+### FAZE 1 — Extrakce (až je čtení hotové)
+
+1. `diamond-pick` — vytáhni klíčové myšlenky/nálezy z přečteného
+2. `deep-read` — re-run přes nově přečtený materiál, pokud FAZE 0 použila cti-cele (deep-read doplní diamond-scoring, které cti-cele samo nedělá)
+3. `diamond-sentry` — sken na diamondy napříč konverzací/atomy, propojení s existujícím diamond indexem
+4. `judi-sentry` — **jen pokud se v materiálu objevila nová judikatura nebo § odkaz** — ověř proti `judi_library/judi_index.json` dřív, než se citace dostane do change-matrixu
+
+### FAZE 2 — Prioritizace na change-matrixu
+
+1. `diamond-to-matrix` — pokud FAZE 1 vyprodukovala `diamonds.json`, převeď na prioritizovanou CHANGE_MATRIX (P0/P1/P2)
+2. `lare` — argument ranking (CORE/SUPPORT/CONTEXT/EXCLUDED) na change-matrixu, pokud jde o argumentační obsah, ne jen mechanické doplnění
+3. **Compliance check** — v repu není samostatný skill; použij `writing-doc` Zákon č. 1 (§ musí existovat přesně) na každou novou/změněnou § citaci v change-matrixu PŘED aplikací, ne až po ní
+
+### FAZE 3 — Aplikace
+
+- `change-discipline` — pokud přichází víc kousků postupně (Level 4: sbírej do `CHANGE_MATRIX_pending.md`, aplikuj najednou na konci kola)
+- Verzování dle `writing-doc` (nová verze = přejmenuj soubor PŘED editací, CHANGE_MATRIX povinná)
+
+### FAZE 4 — Post-edit polish/verify
+
+Po aplikaci změn, PŘED renderem finálního PDF:
+
+1. `slim-diet` — zeštíhlení, pokud dokument nabobtnal
+2. `lex-atomic-render` — vizuální soulad s Lex Atomic designem (petit/evidence table/meta grid)
+3. `VAM` — vizuální scan-readability, 3-second-scan test
+4. `total-analysis-all-in-one` (nebo `legal-total-analysis` pro plný 14-lock CDC) — finální GO/NO-GO
+
+**Zkratka:** pokud dokument už prošel `pipeline` Phase 1 (Build) dřív, `doc-polish` sám zavolá ekvivalent kroků 1–4 (attachments/dates/§/compliance/red-team/judge-sim) + lock release v jednom běhu — použij misto rucniho projeti FAZE 4, kdyz uz je dokument v mid-pipeline stavu.
+
+### Poznámka k pořadí
+
+FAZE 1 a 2 se NESMÍ přeskočit ani při "rychlé" opravě — i jednořádková změna z nového ChatGPT vlákna má projít alespoň `diamond-pick` + `judi-sentry` (pokud cituje §/judikaturu), jinak hrozí neověřená citace v podání (viz `writing-doc` Zákon č. 1, tabulka chybných citací).

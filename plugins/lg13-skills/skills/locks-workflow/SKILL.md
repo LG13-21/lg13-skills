@@ -2,27 +2,28 @@
 name: locks-workflow
 description: >
   Řídí 5-locks schvalovací workflow pro soudní a formální podání v systému LG13.
-  Verze 2 (Tom directive 2026-05-17): LEGAL → STRAT → TIME → TOM → T002.
+  Verze 3 (Tom directive 2026-07-08): LEGAL → STRAT → CHATGPT → TIME → DDD → TOM → T002.
   Legal max 3 kroky. Strat all control + ChatGPT review povinný. TIME = web up + visual OCR.
+  DDD = mechanický gate (datumy, dny, admin, přílohy) těsně před Tomovým finálním čtením.
   Tom read final → KONEC STOP → T002 send.
 
   VŽDY použij tento skill, když uživatel zmíní:
-  lock strat, lock legal, lock t002, lock tom, lock send, lock status, lock check,
+  lock strat, lock legal, lock ddd, lock t002, lock tom, lock send, lock status, lock check,
   lock cancel, lock init, 5 locks, schvalovací workflow, zámky podání, meta.json locks,
-  STRAT/LEGAL/T002/TOM/CAPSULE check, F10 konvence, S+/L+/O+/T+/C+ notace,
+  STRAT/LEGAL/DDD/T002/TOM/CAPSULE check, F10 konvence, S+/L+/O+/T+/C+ notace,
   time capsule podání, forenzní check dokumentu, compliance check souborů,
   visual check, ChatGPT review, total analysis, fast read, web up.
 ---
 
-# locks-workflow — 5-locks schvalovací workflow (V2)
+# locks-workflow — 5-locks schvalovací workflow (V3)
 
-## POŘADÍ LOCKŮ (V2 — Tom directive 2026-05-17)
+## POŘADÍ LOCKŮ (V3 — Tom directive 2026-07-08)
 
 ```
-LEGAL → STRAT → CHATGPT → TIME → TOM → T002
+LEGAL → STRAT → CHATGPT → TIME → DDD → TOM → T002
 ```
 
-**Změna oproti V1:** ChatGPT je samostatný lock (ne součást STRAT). Pořadí: Legal základ, Strat all control + atoms check, ChatGPT nezávislý visual+fast read, TIME = web+OCR, Tom jen "read final", T002 send po KONEC STOP.
+**Změna oproti V2:** přidán samostatný **DDD lock** (Document Dates & Days) mezi TIME a TOM — mechanický gate, který přepočítá placeholdery `<today>`/`<days_since_X>`/`<days_until_X>` a ověří sp. zn./DS/jména/přílohy/předchozí locky, ještě než dokument dorazí k Tomovu finálnímu čtení. Důvod: opakovaný ruční přepočet dnů při každém posunu data (viz `ddd` skill) je chybová a časově nákladná operace, kterou lze plně zautomatizovat.
 
 ```
 F17.0_ASAP.md               ← výchozí, žádný lock
@@ -30,7 +31,8 @@ F17.1_L+_ASAP.pdf           ← LEGAL PASS
 F17.2_L+S+_ASAP.pdf         ← STRAT PASS
 F17.3_L+S+G+_ASAP.pdf       ← CHATGPT PASS (G = GPT)
 F17.4_L+S+G+I+_ASAP.pdf     ← TIME PASS + web live + OCR (I = tIme)
-F17.5_L+S+G+I+T+_ASAP.pdf   ← TOM read final
+F17.45_L+S+G+I+D+_ASAP.pdf  ← DDD PASS (D = DDD, datumy/dny/admin/přílohy vyřešeny)
+F17.5_L+S+G+I+D+T+_ASAP.pdf ← TOM read final
 SENT_F17.5_…_DM{id}.pdf     ← T002 odesláno
 ```
 
@@ -126,6 +128,26 @@ Spouštění: `lock time [pass|fail]`
 
 ---
 
+## LOCK 4.5 — DDD (Document Dates & Days)
+
+Spouštění: `lock ddd [pass|fail]` nebo přímo `python scripts/ddd_check.py --file <doc.md>`
+
+Mechanický gate — **žádné AI hodnocení, jen deterministické kontroly**. Viz skill `ddd` pro detail.
+
+1. Vyřeší placeholdery `<today>`, `<days_since_DD.MM.YYYY>`, `<days_until_DD.MM.YYYY>` přímo v .md zdroji
+2. Ověří sp. zn. / DS / data narození jsou konzistentní všude v textu
+3. Ověří sekce „Přílohy:" existuje a je číslovaná
+4. Ověří `meta.json.locks_v2` — LEGAL, STRAT, CHATGPT, TIME už mají `status: "pass"`
+5. Ověří žádné zbylé interní markery ani nevyřešené placeholdery/prázdná místa
+
+**DDD PASS kritérium:** exit 0 ze `ddd_check.py` — všech 5 gate zelených.
+
+**Pořadí důležité:** DDD běží PO TIME (finální render/přílohy existují) a PŘED TOM (Tom čte text s už doplněnými daty, ne s placeholdery). Po DDD PASS následuje re-render PDF (placeholdery se vyřešily v .md, PDF musí být přegenerováno, aby odpovídalo).
+
+**DDD PASS** → předat TOM.
+
+---
+
 ## LOCK 5 — TOM (read final)
 
 Tom přečte finální verzi — PDF nebo web. Žádný formální approval formulář.
@@ -151,7 +173,7 @@ Podmínka: Tom KONEC STOP.
 
 ## HARD RULES (nezměnitelné)
 
-1. **Pořadí LEGAL → STRAT → CHATGPT → TIME → TOM → T002** — nepředbíhat
+1. **Pořadí LEGAL → STRAT → CHATGPT → TIME → DDD → TOM → T002** — nepředbíhat
 2. **Tom musí říct KONEC STOP** explicitně — T002 jinak neodesílá nikdy
 3. **Žádné interní markery** v dokumentu pro soud
 4. **Visual OCR check povinný** v TIME locku — PDF jako fotky, tabulky, záhlaví, podpis
@@ -159,6 +181,12 @@ Podmínka: Tom KONEC STOP.
 6. **ChatGPT podmínky = blocker** — dokud nezapracovány, TIME nelze udělit
 7. **Legal max 3 kroky** — L1+L2+L3, žádné elaborace navíc
 8. **"Je to jak Tom chtel?"** — S4 STRAT musí odpovědět ANO
+9. **DDD je mechanický, ne obsahový** — neposuzuje argumentaci, jen datumy/dny/admin/přílohy/předchozí locky
+10. **Po DDD PASS vždy re-render** — placeholdery se vyřešily v .md, PDF se musí přegenerovat před TOM lockem
+
+### Jarvis web-up — ruční override locků (Tom directive 2026-07-08)
+
+V Jarvis web-up rozhraní má Tom právo **kterýkoli lock ručně přeskočit nebo přepnout** (force-pass / force-fail), nezávisle na automatickém výsledku. Toto je UI/backend feature Jarvis web appky (mimo rozsah tohoto skillu — implementace u instance `coder`, ne `legal`). Zápis do `meta.json.locks_v2.<stage>` musí zaznamenat `"override_by": "tom"` a `"ts"`, aby byl override odlišitelný od automatického PASS při zpětné kontrole.
 
 ---
 
@@ -180,6 +208,7 @@ lock legal pass --folder {cesta}        # L1+L2+L3 OK
 lock strat pass --folder {cesta}        # S1-S4 OK
 lock chatgpt pass --folder {cesta}      # GO_SHIP nebo CONDITIONAL_GO + podmínky zapracovány
 lock time pass --folder {cesta}         # PDF rebuilt, web up, OCR visual OK
+lock ddd pass --folder {cesta}          # ddd_check.py exit 0 (datumy/dny/admin/prilohy/predchozi locky)
 lock tom submit                          # Dej Tomovi k přečtení
 lock send --konec-stop                   # T002 odešle po KONEC STOP
 lock status --folder {cesta}            # Stav všech locků
@@ -190,13 +219,14 @@ lock cancel --reason "…"               # Zrušit
 
 ```json
 {
-  "stav": "waiting_legal|waiting_strat|waiting_chatgpt|waiting_time|waiting_tom|sending|sent|cancelled",
+  "stav": "waiting_legal|waiting_strat|waiting_chatgpt|waiting_time|waiting_ddd|waiting_tom|sending|sent|cancelled",
   "aktualni_verze": "F17.3_L+S+G+_ASAP",
   "locks_v2": {
     "legal":   {"status": null, "ts": null, "notes": ""},
     "strat":   {"status": null, "ts": null, "notes": ""},
     "chatgpt": {"status": null, "ts": null, "verdict": null, "conditions": []},
     "time":    {"status": null, "ts": null, "web_url": null, "ocr_checked": false},
+    "ddd":     {"status": null, "ts": null, "placeholders_resolved": 0, "override_by": null},
     "tom":     {"status": null, "ts": null, "signal": null}
   }
 }
@@ -205,6 +235,11 @@ lock cancel --reason "…"               # Zrušit
 ## Referenční soubory
 
 - `references/incidents.md` — incidenty 15.4., 16.4.2026
-- `L:/GitHub/legal-ship-2026/docs/orchestration/5_LOCKS_WORKFLOW_V2.md` — plný popis V2
+- `L:/GitHub/legal-ship-2026/docs/orchestration/5_LOCKS_WORKFLOW_V2.md` — plný popis V2 (V3 = tento soubor)
 - `scripts/forensics.py` — interní markery + inventář příloh
 - `scripts/audit.py` — meta.json atomic read/write
+- `L:/GitHub/legal-ship-2026/scripts/ddd_check.py` — backing skript pro LOCK 4.5 DDD (viz skill `ddd`)
+
+## Related
+
+- `ddd` — Document Dates & Days, plný popis LOCK 4.5

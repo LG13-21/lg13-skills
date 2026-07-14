@@ -1,0 +1,18 @@
+{
+  "description": "LG13 lifecycle hooks: PreCompact loop protokol (remember → ping-pong → compact)",
+  "hooks": {
+    "PreCompact": [
+      {
+        "matcher": "auto",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python \"C:/Users/tom/.claude/hooks/pre-compact-loop.py\"",
+            "timeout": 15,
+            "statusMessage": "Pre-compact: remember → ping-pong → compact..."
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,95 +1,90 @@
 ---
 name: file-catalog-search
-description: "Najít soubor přes librarian instance místo manual Glob. Standardizovaný entrypoint pro evidence/document lookup. Trigger: 'kde je soubor', 'catalog', 'librarian', 'find file'."
+description: Use when searching for a file by name or keyword anywhere on the system. Searches a pre-built TREE catalog (227k+ files) instead of slow filesystem scan or repeated Glob calls.
 user-invocable: true
 ---
 
-# File-Catalog-Search — Librarian queue lookup
+# File Catalog Search — Hledání souborů přes TREE katalog
 
-## PURPOSE
+## PRAVIDLO
 
-Najít soubor v LG13 codebase / evidence storage přes librarian instance (która udržuje catalog index). Vyhne se token-spend na manual Glob napříč 100+ adresáři.
+**Nikdy nespouštěj `find` nebo `Get-ChildItem -Recurse` pro hledání souborů.** Použij tento skill — katalog pokrývá 227 000+ souborů a vrací výsledky okamžitě.
 
----
-
-## EXECUTION
-
-### Send find request do librarian queue
+## POUŽITÍ
 
 ```bash
-python L:/LG13/app/agent/instance_queue.py --send --to librarian --from-inst <self> --msg "FIND: <query>" --priority P2
+python L:/LG13/app/agent/skills/file_catalog_search.py <pattern> [--limit N] [--root <root>] [--exact]
 ```
 
-### Check responses (librarian vrací přes queue)
+### Příklady
 
 ```bash
-python L:/LG13/app/agent/instance_queue.py --check --name <self>
+# Najdi soubor podle části názvu
+python L:/LG13/app/agent/skills/file_catalog_search.py "atom_dispatcher"
+
+# Najdi v konkrétním root adresáři
+python L:/LG13/app/agent/skills/file_catalog_search.py "STAV_NOW" --root LG13
+
+# Přesná shoda filename
+python L:/LG13/app/agent/skills/file_catalog_search.py "jarvis_v2.html" --exact
+
+# Více výsledků
+python L:/LG13/app/agent/skills/file_catalog_search.py "chatgpt_ingest" --limit 20
+
+# Hledej jen v GitHub repech
+python L:/LG13/app/agent/skills/file_catalog_search.py "CLAUDE.md" --root GitHub
 ```
 
-### Wait pattern (librarian async, may take 30-60s)
+## PARAMETRY
 
-Použij `tmonkey-arm` nebo `ping-pong` skill arm Monitor watcher na vlastní stack/queue změnu, jinak polling 30s.
+| Parametr | Výchozí | Popis |
+|----------|---------|-------|
+| `pattern` | (required) | Hledaný řetězec — case-insensitive, substring celé cesty |
+| `--limit N` | 50 | Max výsledků |
+| `--root <str>` | všechny rooty | Filtruj dle rootu: `GitHub`, `LG13`, `Lukasek`, `Lukasek13` |
+| `--exact` | false | Přesná shoda filename (ne substring v celé cestě) |
 
----
+## POKRYTÍ KATALOGU
 
-## CO SE STANE
+| Root | Pokrývá |
+|------|---------|
+| `L:\GitHub` | Všechny repozitáře (lg13-coder, legal-ship-2026, lg13-tampermonkey, …) |
+| `L:\LG13` | Runtime, app, agent kód, skills, atoms |
+| `L:\Lukasek` | Tomova data, archivy, projekty |
+| `C:\Users\tom\OneDrive\Dokumenty\Lukasek13` | OneDrive dokumenty |
 
-- queue write → librarian instance pickup
-- librarian queries svůj catalog (filename + content index)
-- librarian replies přes queue s file paths + relevance ranking
-- self instance vyzvedne reply
+**Vyloučeno:** `node_modules`, `venv`, `.git`, `__pycache__`, `granite-docling-258M`
 
----
+Katalog: auto-discovery z více umístění (nejnovější TREE soubor se použije automaticky):
+1. `L:\Tree\OUT_INVENTORY\TREE_*.txt` ← **primární** (aktuální)
+2. `L:\lukasek_auto_data\New9\OUT\OUT_INVENTORY\TREE_*.txt` ← fallback
+3. `L:\GitHub\legal-ship-2026\ChatGPT_export\TREE_*.txt` ← fallback
 
-## OUTPUT
+Aktuální katalog: `TREE_2026-06-19_175819.txt` (19.7 MB)
 
-Librarian response = list paths s metadata (size, mtime, OCR-indexed flag, ranking).
+## REFRESH (pokud nenajdeš čerstvě vytvořený soubor)
 
----
+```powershell
+# Primární (generuje do L:\Tree)
+Set-Location "L:\Lukasek_Auto_Data\New9"
+powershell -ExecutionPolicy Bypass -File ".\00_collect_tree.ps1"
+# Trvá ~30–60s
+```
 
-## RULES
+## KDY POUŽÍT
 
-- **NEPOUŽÍVAT pro known paths** — pokud víš cestu, Read přímo (cheaper than queue roundtrip)
-- **Async** — librarian nemusí být armed; expect 30s+ latency
-- Pokud librarian DOWN → fallback na local Glob (logni token-tip do strat)
-- **Per memory `reference_lg13_pingpong.md`**: queue pro one-shot tasking, NE pro chat dialog
+- "kde je soubor X?"
+- "najdi implementaci Y"
+- "kde leží STAV_NOW.md strat instance?"
+- Před jakýmkoli ručním Glob nebo find příkazem
 
----
+## KDY NEPOUŽÍT
 
-## USE CASES
-
-- legal: "kde je rozsudek z roku 2024 ve věci X" → librarian search OCR catalogue
-- coder: "kde je definice atom_classifier" → fallback Grep, ne librarian (code search ≠ document search)
-- tmonkey post-trigger: nový atom mentions document → file-catalog-search resolve path
-
----
-
-## QUERY SYNTAX
-
-- Plain text: `FIND: rozsudek 0 P 29 Matoušek`
-- Filename hint: `FIND: file:Cestne_prohlaseni_*`
-- Date range: `FIND: from:2025-09 to:2025-12 OSPOD`
-- Type filter: `FIND: type:pdf zadost`
-
-(Librarian parses; spec depends na librarian implementation status — TBC)
-
----
-
-## STATUS
-
-- **Librarian instance:** TBD ready check (per coder R155 ping Q4 to legal)
-- **Fallback:** local Glob + tom messaging librarian directly
-
----
+- Pokud cestu znáš → Read přímo (rychlejší)
+- Hledáš obsah souboru → Grep tool (ne katalog — katalog má jen cesty)
 
 ## RELATED
 
-- `ocr-git` skill — feeds OCRed content do librarian catalogue
-- `tmonkey-monitor` — diagnostics
-- Memory: librarian instance scope v kernel `L:/Lukasek/CLAUDE.md` ROUTING table
-
----
-
-## FINAL
-
-→ paths returned → instance Read přímo nebo escalate pokud miss
+- `L:\LG13\app\agent\skills\file_catalog_search.py` — search script
+- `L:\lukasek_auto_data\New9\config.ps1` — konfigurace (SourceDirs, ExcludeDirNames)
+- `L:\lukasek_auto_data\New9\00_collect_tree.ps1` — generátor katalogu

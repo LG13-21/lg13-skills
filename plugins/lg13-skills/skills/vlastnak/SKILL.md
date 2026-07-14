@@ -1,137 +1,109 @@
 ---
 name: vlastnak
-description: Use when an instance needs to define its own session goal — generates structured GOAL_PROMPT, saves to MySQL, copies to clipboard, displays in ASCII box. Alias for self-goal.
+description: Use when an instance needs to write its own session goal prompt — a first-person startup prompt with clear done conditions, displayed on screen and copied to clipboard.
 ---
 
 # vlastnak / self-goal
 
-Vygeneruje vlastní session goal pro instanci. Uloží do MySQL, clipboard, ASCII box.
+Napiš vlastní session prompt. Zobraz na screen. Dej do clipboardu.
+
+**Výstup = text který by ses mohl paste-nout do nové session a okamžitě vědět co děláš.**
 
 ## EXECUTION
 
-### Krok 1 — Promtuj si vlastní cíl
+### Krok 1 — Napiš vlastní prompt (první osoba)
 
-Zodpověz tyto otázky:
-1. **MISE**: Co je tvůj hlavní úkol v této session? (1-2 věty)
-2. **CÍLE**: Jaké konkrétní výstupy chceš dodat? (max 5 položek)
-3. **BLOCKER**: Co tě blokuje nebo vyžaduje Tom GO? (nepovinné)
-4. **DONE CRITERIA**: Jak poznáš, že session je hotová?
+Formuluj jako by ses psal sám sobě. Odpověz:
+- Kdo jsi a co je tvá role?
+- Co konkrétně děláš v této session?
+- Kdy je session hotová? (jasné, testovatelné podmínky)
+- Co tě blokuje?
 
-### Krok 2 — Sestavení GOAL_PROMPT
+### Krok 2 — Sestavení a uložení do souboru
 
 ```python
-import sys, json, time, subprocess
+import sys, time
 from pathlib import Path
-sys.stdout.reconfigure(encoding='utf-8')
+sys.stdout.reconfigure(encoding='utf-8', errors='replace')
 
 instance = 'coder'  # auto-detect z cwd
 ts = time.strftime('%Y-%m-%d %H:%M UTC', time.gmtime())
 
-# --- vyplň interaktivně nebo jako literál ---
-mise = "<MISE — co je hlavní úkol>"
-goals = [
-    ("P1", "<název>", "<soubor nebo N/A>", "<stav>", "<blocker nebo —>"),
-]
-done_criteria = ["<kritérium 1>", "<kritérium 2>"]
+# Piš vlastní prompt — první osoba, konkrétní
+goal_prompt = f"""# {instance.upper()} SESSION GOAL -- {ts}
 
-# --- compose ---
-goals_table = "| # | Cíl | Výstup | Stav | Blocker |\n|---|-----|--------|------|---------|\n"
-for g in goals:
-    goals_table += f"| {g[0]} | {g[1]} | {g[2]} | {g[3]} | {g[4]} |\n"
+## KDO JSEM
+<kdo jsi, tvá role v tomto projektu>
 
-done_list = "\n".join(f"- [ ] {c}" for c in done_criteria)
+## CO DELAM TUTO SESSION
+<co konkrétně děláš — 2-3 věty, ne obecnosti>
 
-goal_text = f"""# {instance.upper()} INSTANCE — SESSION GOAL
-# Generated: {ts}
-
-## MISE
-{mise}
-
-## CÍLE
-
-{goals_table}
-## DONE CRITERIA
-
-{done_list}
+## DONE CONDITIONS
+- [ ] <konkrétní, testovatelná podmínka 1>
+- [ ] <konkrétní, testovatelná podmínka 2>
+- [ ] <atd.>
 
 ## BLOCKER
-_(doplň nebo prázdné)_
+- <co tě blokuje nebo vyžaduje GO>
 """
+
+# Ulož do temp souboru pro clipboard
+tmp = Path('C:/tmp/clipboard_goal.txt')
+tmp.parent.mkdir(exist_ok=True)
+tmp.write_text(goal_prompt, encoding='utf-8')
 ```
 
-### Krok 3 — Uložení
+### Krok 3 — Zobraz na screen
 
 ```python
-# A) Do STAV_NOW.md
-stav = Path(f'L:/GitHub/lg13-coder/STAV_NOW.md')
-with open(stav, 'a', encoding='utf-8') as f:
-    f.write(f'\n## SESSION GOAL — {instance} {ts}\n\n{mise}\n\n')
+# Full text
+print(goal_prompt)
 
-# B) Do MySQL (instance_plans)
-sys.path.insert(0, 'L:/GitHub/lg13-coder/agent/skills')
-from db_query import db
-db("INSERT INTO instance_plans (instance, plan_text, saved_at) VALUES (%s,%s,NOW()) "
-   "ON DUPLICATE KEY UPDATE plan_text=%s, saved_at=NOW()",
-   params=[instance, goal_text, goal_text])
-
-# C) Do souboru (pro referenci)
-out = Path(f'L:/GitHub/lg13-coder/GOAL_PROMPT_{instance.upper()}.md')
-out.write_text(goal_text, encoding='utf-8')
-print(f"[vlastnak] Uloženo: {out}")
+# ASCII border
+width = 66
+border = '=' * (width + 4)
+print(border)
+for line in goal_prompt.splitlines():
+    print(f'  {line[:width]}')
+print(border)
 ```
 
-### Krok 4 — Kopírovat do clipboardu
-
-```powershell
-Set-Clipboard -Value @"
-<goal_text zde>
-"@
-Write-Output "[vlastnak] Zkopírováno do clipboardu."
-```
-
-Nebo přes Python:
+### Krok 4 — Kopírovat do clipboardu (přes temp soubor)
 
 ```python
-subprocess.run(['powershell', '-Command',
-    f'Set-Clipboard -Value {json.dumps(goal_text)}'], check=False)
+import subprocess
+r = subprocess.run(
+    ['powershell', '-Command', f'Get-Content -Path "{tmp}" -Raw | Set-Clipboard'],
+    capture_output=True, text=True
+)
+if r.returncode == 0:
+    print('[vlastnak] Zkopírováno do clipboardu.')
+else:
+    print(f'[vlastnak] Clipboard err: {r.stderr.strip()}')
 ```
 
-### Krok 5 — Zobrazit v ASCII boxu
+**Proč temp soubor:** přímé předávání víceřádkového textu přes CLI args selže na quoting. Temp soubor je spolehlivý.
 
-```python
-width = 60
-border = '+' + '-' * (width + 2) + '+'
-lines = [border, f'|  {instance.upper()} SESSION GOAL — {ts}  |', border]
-for line in mise.splitlines():
-    padded = line[:width].ljust(width)
-    lines.append(f'| {padded} |')
-lines.append(border)
-print('\n'.join(lines))
-```
+## DONE CONDITIONS formát
 
-## OUTPUT PŘÍKLAD
+Každá podmínka musí být:
+- **Konkrétní** — ne "feature hotová", ale "test_cmd_stack.py prochází"
+- **Testovatelná** — dá se ověřit bez interpretace
+- **Binary** — buď splněno, nebo ne
 
 ```
-+--------------------------------------------------------------+
-|  CODER SESSION GOAL — 2026-05-31 20:00 UTC  |
-+--------------------------------------------------------------+
-| Implementovat statusline right-side panel (brainstorming →  |
-| design → writing-plans). Vedlejší: CGE potvrzeno.           |
-+--------------------------------------------------------------+
-```
+# ✅ Dobře
+- [ ] chatgpt_ingest.py: CMD routing do coder_cmd_stack.jsonl funkční
+- [ ] Test: Tom napíše [Ty:] → coder dostane atom do 30s
 
-## VARIANTA — Rychlá (jen STAV_NOW.md + ASCII box, bez MySQL)
-
-Pokud chceš jen zapsat cíl bez persistování:
-
-```
-## SESSION GOAL — <inst> <TS>
-<1-3 věty co chceš dodat>
+# ❌ Špatně  
+- [ ] Zlepšit ingest
+- [ ] Pracovat na reliability
 ```
 
 ## RELATED
 
-- Vzorový GOAL_PROMPT: `L:/GitHub/legal-ship-2026/GOAL_PROMPT.md`
-- MySQL save: `/lg13-skills:save-to-store`
-- Super-start krok B1 (self-goal) → volá právě tuto funkci
-- Alias: `self-goal` (stejný skill, jiné jméno)
+- `/goal <text>` — nastav Stop hook na done conditions (paste z clipboardu)
+- `/lg13-skills:save-to-store` — ulož stav do MySQL
+- Super-start krok B1 (self-goal) → volá tuto funkci
+- Alias: `self-goal`

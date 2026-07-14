@@ -1,6 +1,6 @@
 ---
 name: comm-legal
-description: Use when checking ISDS and email communication status for sp. zn. 0 P 29/2026, scanning for new documents, running OCR on attachments, updating evidence catalog, or getting a dashboard of what arrived, what was sent, and what's pending
+description: Use when checking ISDS and email communication status for sp. zn. 0 P 29/2026, scanning for new documents, running OCR on attachments, updating evidence catalog (JSON + MySQL isds_podani), or getting a dashboard of what arrived, what was sent, and what's pending. Also use PROACTIVELY mid-session whenever a new ISDS fact emerges (sent confirmation, new inbox item, resolved alert) — don't defer the evidence update to the next explicit invocation.
 ---
 
 # comm-legal — ISDS + Email Communication Dashboard
@@ -13,11 +13,23 @@ Spravuje veškerou ISDS a email komunikaci pro sp. zn. 0 P 29/2026. Skenuje nov�
 
 ## When to Use
 
-- Super-start init — automaticky spustit po A3 (deep-read)
+- Super-start init — automaticky spustit po A3 (deep-read); i `/lg13-skills:sr` volá tuto skill v Kroku 3.5
 - Přišel signál o novém ISDS dokumentu
 - Před odesláním — ověř stav fronty + STOP ORDER
 - Tom ptá: "co nám přišlo?", "co jsme poslali?", "co čeká?"
 - Po přidání nového souboru do `Inbox/isds/`
+- **PRŮBĚŽNĚ, kdykoli v session zjistíš cokoli z ISDS** — viz sekce "PRŮBĚŽNÁ AKTUALIZACE" níže (Tom direktiva 2026-07-13)
+
+## PRŮBĚŽNÁ AKTUALIZACE (Tom direktiva 2026-07-13)
+
+Evidence (JSON i MySQL) nesmí zůstat pozadu za skutečností. Pokud během session — mimo formální spuštění tohoto skillu — zjistíš cokoli, co patří do ISDS evidence, **aktualizuj ji hned, ne až při příštím `/comm-legal`**:
+
+- odešleš/potvrdíš odeslání podání (nový `dm_id`) → přidej do `isds_evidence.json` sekce `sent` I do MySQL `isds_podani`
+- zkontroluješ inbox a najdeš novou přijatou zprávu → přidej do `received`
+- zjistíš, že alert byl vyřešen (např. odvoláním, doplněním) → aktualizuj `status`/`action_required` v `alerts`
+- zjistíš rozpor mezi JSON a MySQL (jako 2026-07-13: MySQL `isds_podani` byla 2 měsíce pozadu za JSON) → sesynchronizuj OBA směry, ne jen jeden
+
+Nečekej na explicitní "spusť comm-legal" příkaz — pokud práce v session (např. psaní/odesílání podání, kontrola inboxu) přirozeně produkuje nový ISDS fakt, zápis do evidence je součástí té práce, ne samostatný úkol na později.
 
 ## Execution
 
@@ -155,6 +167,36 @@ for s in sent:
 print(f"\n📊 Celkem: {len(ev.get('received',[]))} přijato | {len(sent)} odesláno | {len(pending)} čeká")
 print("="*65)
 ```
+
+### Krok 4 — MySQL sync (isds_podani)
+
+JSON evidence (`isds_evidence.json`) a MySQL tabulka `isds_podani` musí obsahovat stejná podání. Po Kroku 2/3 (nebo při průběžné aktualizaci) zkontroluj rozdíl a dorovnej:
+
+```python
+import sys
+sys.path.insert(0, 'L:/GitHub/lg13-coder/agent/skills')
+from db_query import db
+
+# Zjisti, které 'wave'/'verze' z JSON sent[] už jsou v MySQL
+r = db("SELECT DISTINCT vlna FROM isds_podani")
+known_vlny = {row[0] for row in r.get('rows', [])}
+
+sent = ev.get("sent", [])
+missing = [s for s in sent if s.get("verze", s.get("wave", s.get("id",""))) not in known_vlny]
+
+for s in missing:
+    vlna = s.get("verze", s.get("wave", s.get("id","?")))
+    dm = s.get("dm_id","")
+    poznamka = f"dm={dm} {s.get('note','')}"[:250]
+    db("INSERT INTO isds_podani (vlna, datum_odeslani, predmet, soubor, je_v_soudnim_spisu, poznamka) VALUES (%s,%s,%s,%s,%s,%s)",
+       params=[vlna, s.get("date","?"), s.get("subject","")[:250], (s.get("files") or ["-"])[0], 0, poznamka])
+    print(f"  MySQL + {vlna}")
+
+if not missing:
+    print("  MySQL isds_podani je synchronizovana s JSON.")
+```
+
+Pokud najdeš záznam v MySQL, který v JSON chybí (opačný směr) — dopiš ho i do `isds_evidence.json`, ne jen nahlas.
 
 ## Email seznam.cz
 
