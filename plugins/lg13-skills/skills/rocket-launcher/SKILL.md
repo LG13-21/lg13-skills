@@ -62,6 +62,40 @@ tohoto vzoru**, ne podle staré dokumentace.
 
 ---
 
+## .bat SOUBOR NA PLOŠE — POVINNÝ KROK, NE VOLITELNÝ
+
+Launcher `isds_rocket_<FC>.py` sám o sobě Tomovi k ničemu není, pokud nemá dvojklikací
+spouštěč. **Vytvoření/aktualizace `.bat` souboru ve složce**
+
+```
+L:\OneDrive - Jihočeská univerzita v Českých Budějovicích\Desktop\Rocket_launchers\<FC>_odeslat.bat
+```
+
+**je součástí dokončení tohoto skillu, ne dodatečný krok navíc.** Tahle složka existuje a je
+používaná od F38 — než založíš nový `.bat`, zkontroluj `dir` té složky a použij existující
+soubor (např. `F53_odeslat.bat`) jako přesný vzor formátu, ne jen jako inspiraci.
+
+Šablona (jediné, co se mění, je `title` a cesta k `.py`):
+
+```bat
+@echo off
+chcp 65001 >nul
+title <FC> ISDS ROCKET LAUNCHER  --  <kratky popis podani> (0 P 29/2026)
+color 0A
+
+"C:\Users\tom\AppData\Local\Programs\Python\Python312\python.exe" "L:\GitHub\legal-ship-2026\<FC>\isds_rocket_<FC>.py"
+
+if %ERRORLEVEL% NEQ 0 (
+    echo.
+    echo  SKRIPT SKONCIL S CHYBOU: %ERRORLEVEL%
+    pause
+)
+```
+
+Bez tohoto kroku skill NENÍ dokončen, i kdyby `isds_rocket_<FC>.py` sám o sobě byl 100% správně.
+
+---
+
 ## KONFIGURACE (blok na začátku engine, jediné co se mění per F-cyklus)
 
 ```python
@@ -140,6 +174,26 @@ Test kontroluje DVĚ věci: (1) žádný druhý manual gate mezi T-0 a odeslán�
 per-item `--attach` smyčka (repeated-flag bug výše). Selže → oprav podle vzoru
 v `F53/isds_rocket_F53.py`. Přidej nový launcher do `CANONICAL_TEMPLATE_SCRIPTS`
 v testu, jakmile ho zkopíruješ pro další F-cyklus.
+
+---
+
+## DEFINITION OF DONE — checklist, žádný krok nevynechat
+
+Tenhle skill se nepovažuje za dokončený, dokud nejsou splněny VŠECHNY body — zejména
+oba body o přílohách, protože přesně tady vznikly incidenty F39 (2026-06-19) a F52
+(2026-07-13), kdy launcher vypadal hotový a přesto odeslal jen část příloh:
+
+- [ ] `isds_rocket_<FC>.py` zkopírován z posledního canonical vzoru (např. `F53/isds_rocket_F53.py`), upraven jen blok KONFIGURACE
+- [ ] `DATOVKA_TEXT.md` existuje a obsahuje sp. zn. + kompletní číslovaný seznam příloh
+- [ ] **`ATTACHMENTS` — MAIN_PDF je explicitně PRVNÍ prvek seznamu** (zkontroluj vizuálně, ne jen si to pamatuj)
+- [ ] **`grep -n "cmd +="` nebo `"--attach"` v launcheru ukazuje PRÁVĚ JEDNO volání** `cmd += ["--attach"] + [str(a) for a in ATTACHMENTS]` — **žádná** `for att in ATTACHMENTS: cmd += ["--attach", ...]` smyčka
+- [ ] Nový launcher přidán do `CANONICAL_TEMPLATE_SCRIPTS` v `scripts/test_rocket_launcher_no_second_gate.py`
+- [ ] `python scripts/test_rocket_launcher_no_second_gate.py` spuštěn a PASS na obou kontrolách (no-second-gate i no-repeated-attach) pro nový launcher
+- [ ] Všechny soubory v `ATTACHMENTS` fyzicky ověřeny (`ls`/`stat`), ne jen podle jména předpokládány
+- [ ] `<FC>_odeslat.bat` vytvořen/aktualizován v `Desktop\Rocket_launchers\` (viz sekce výše)
+- [ ] `LOCK_CERT` ukazuje na existující, aktuální UNLOCK certifikát s GO verdiktem
+
+Pokud kterýkoli bod chybí, řekni to explicitně Tomovi — nepředstírej hotovo.
 
 ---
 
