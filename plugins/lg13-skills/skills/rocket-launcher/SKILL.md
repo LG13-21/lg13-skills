@@ -35,7 +35,10 @@ tohoto vzoru**, ne podle staré dokumentace.
    lock-certifikát).
 3. **Zobrazí text zprávy** (DATOVKA_TEXT.md) a seznam příloh s velikostmi.
 4. **LAUNCH CONFIRM** — Tom napíše `LAUNCH`, cokoliv jiného = abort.
-5. **Capsule minuty** — Tom zadá počet minut (Enter = default z konfigurace, typicky 120).
+5. **Capsule minuty NEBO přesné datum+čas** — Tom zadá buď počet minut (Enter = default
+   z konfigurace, typicky 120), nebo přesné datum a čas odeslání (`2026-07-15 08:00` /
+   `15.7.2026 08:00`) — launcher si spočítá kolik minut to je odteď. Zadaný čas v minulosti
+   nebo <60s od teď se ořízne na minimum 60s (bezpečnostní pojistka, ne tichý okamžitý send).
    **Tímto krokem je zadávání u konce.**
 6. **Odpočet** s periodickým re-checkem (default 45 s) — progress bar `T-MM:SS GREEN
    (NIC SE NEODESILA)`. Regrese během odpočtu (baterie spadne na RED) = automatický ABORT,
