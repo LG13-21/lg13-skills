@@ -1,6 +1,6 @@
 ---
 name: chatgpt-ask
-description: "Posle otazku ChatGPT a ziska odpoved zpet jako LG13 atom. Pouzij kdyz instance potrebuje second-opinion, review, oponenta, gramatiku, nebo vysvetleni. ChatGPT je dobrej policajt a revizor (Tom). Workflow: chatgpt-send → pockej → chatgpt-force-read → stack_reader. Trigger: 'chatgpt ask', 'zeptej se chatgpt', 'potrebuju radu chatgpt', 'review v chatgpt', 'second opinion chatgpt', 'oponent', 'recenze chatgpt', 'at to chatgpt zkontroluje'."
+description: "Posle otazku ChatGPT a ziska odpoved zpet jako LG13 atom. Pouzij kdyz instance potrebuje second-opinion, review, oponenta, gramatiku, nebo vysvetleni. ChatGPT je dobrej policajt a revizor (Tom). Workflow: gpt-bridge (claude-in-chrome) → wake_signal → cge_legal_digest. Trigger: 'chatgpt ask', 'zeptej se chatgpt', 'potrebuju radu chatgpt', 'review v chatgpt', 'second opinion chatgpt', 'oponent', 'recenze chatgpt', 'at to chatgpt zkontroluje'."
 user-invocable: true
 ---
 
@@ -13,38 +13,16 @@ Workflow: **send** zpravy → **pockej** na odpoved → **force TM** aby precetl
 
 ---
 
-## WORKFLOW (3 kroky)
+## WORKFLOW (přes gpt-bridge, bez Edge)
 
-### Krok 1 — Posli otazku
+Detail a smyčka: skill `gpt-bridge` (#770). Edge/CDP (`chatgpt-send`, `chatgpt-force-read`) je DEPRECATED.
 
-Pouzij skill `chatgpt-send`:
-```
-chatgpt-send project=Legal message="Q: <otazka anonymized>"
-```
-nebo do existujiciho threadu:
-```
-chatgpt-send thread=https://chatgpt.com/c/<id> message="Q: <otazka>"
-```
+1. **Init** (jednou): `python L:/GitHub/legal-ship-2026/scripts/gpt_bridge.py init --conv-id <conv_id> --run <nazev> --max-iter 10` (conv_id z `chatgpt.com/c/<conv_id>`; vlákno najdi `chatgpt-find`).
+2. **ASK**: `gpt_bridge.py prompt --conv-id <id> --text "Q: <otazka>"` → vytištěný text (prefix `[BRIDGE run#n]`) vložit a odeslat v existujícím přihlášeném Chrome přes claude-in-chrome (tab `chatgpt.com/c/<id>`).
+3. **WAIT**: `gpt_bridge.py wait --conv-id <id> --timeout 600` (čeká na wake_signal source=chatgpt, ne polling DOM) → odpověď | TIMEOUT | HUMAN_GATE.
+4. **Další kolo?**: `gpt_bridge.py check --conv-id <id> --findings-file <f>` → CONTINUE | STOP:<důvod>.
 
-Zapis si **thread URL** z outputu.
-
-### Krok 2 — Pockej na odpoved
-
-ChatGPT potrebuje cas. Typicky:
-- Jednoducha otazka: 15-30s
-- Review dokumentu: 45-90s
-- Komplexni analyza: 2-3min
-
-### Krok 3 — Force TM ingest + precti atom
-
-```
-chatgpt-force-read url=<thread URL z kroku 1>
-```
-
-Pak precti odpoved:
-```bash
-python L:/LG13/app/agent/stack_reader.py --instance <my-name> --new --mark-read --limit 50
-```
+Chrome vypadl / tab zmizel → BLOCKED, zeptat se Toma. Nikdy nespouštět Edge ani nerestartovat prohlížeč. Tomova zpráva v threadu = HUMAN_GATE (pauza).
 
 ---
 
@@ -80,12 +58,11 @@ Formuluj jako „Q: ..." ne „udělej X" — ChatGPT nema tvuj kontext, otazka 
 - **Single-thread**: pokud Lik a coder oba posilaji do stejneho threadu, nechej ~10s gap
 - **No PII**: viz checklist — ChatGPT odpovedi mohou byt stored
 - **New chat vs existing**: pro kazde nove tema = novy chat (project=Legal). Navazujici Q = stejny thread.
-- **Alternativa pro dokumenty**: pushnout anonymized verzi na GitHub, pak pouzit `/github` special pres `chatgpt-send`
+- **Alternativa pro dokumenty**: pushnout anonymized verzi na GitHub a poslat odkaz pres gpt-bridge
 
 ---
 
 ## RELATED
 
-- `chatgpt-send` — step 1 (posle zpravu)
-- `chatgpt-force-read` — step 3 (TM ingest odpovedi)
-- `stack_reader` — step 3 (precte atom zpet)
+- `gpt-bridge` — smyčka ASK/WAIT/check (nahrazuje chatgpt-send + chatgpt-force-read)
+- `chatgpt-find` — najde conv_id offline
