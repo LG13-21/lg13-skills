@@ -3,8 +3,8 @@ name: sr
 description: >
   Kompletní session startup skill. Volej při: nové session, po /clear, po probuzení z idle,
   z launcheru. Provede: load-from-store → remember → i-can-hear-u → issue-sync →
-  comm-legal (jen instance legal) → deep-read → ping-pong → brainstorming → writing-plans →
-  executing-plans → vlastnak.
+  comm-legal (jen instance legal) → deep-read → ping-pong → low-food-slow-down → brainstorming →
+  writing-plans → executing-plans → vlastnak.
   Výsledek: fresh session, poslouchám všechny kanály, plán načten, vlastní goal definován.
 ---
 
@@ -150,6 +150,14 @@ print(f"[sr] Jarvis notified: {status_msg}")
 ```
 
 → nebo `/lg13-skills:ping-pong`
+
+---
+
+### 5.5 — low-food-slow-down (hlídání limitu + ctx/compact hygiena)
+
+Spusť `/low-food-slow-down`: snapshot spotřeby do Jarvis, zóna do `chat_messages`, první hodinová kontrola přes ScheduleWakeup (3600 s). Skill hlídá i práci s ctx/compactem (viz jeho sekce „Hygiena ctx a compactu").
+
+**Povinná sada při startu (shrnutí):** `/load-from-store` (1) → `/remember` (1.5) → `/i-can-hear-u` (2) → `/low-food-slow-down` (5.5) → `/ping-pong` (5).
 
 ---
 
