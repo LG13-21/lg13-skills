@@ -31,3 +31,6 @@ Format: `## [date] — title`
 - Added REGISTRY.md, CHANGELOG.md, README.md
 - Added skill templates (basic, pingpong, monitor, meta)
 - **New skills:** heartbeat, terminator, avengers, skill-creator, plan-to-git
+
+## [2026-10-09] — add ctx-usage-report
+- New skill `ctx-usage-report`: zapis spotreby tokenu a vykonane prace po vetsim ukolu do Jarvis usage.php, vc. duvodu vysoke spotreby
