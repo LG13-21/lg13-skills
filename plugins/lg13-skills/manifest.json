@@ -40,7 +40,7 @@
       {"name": "legal-total-analysis", "tokens": 1900, "triggers": ["total analysis", "celková analýza"]},
       {"name": "isds", "tokens": 1585, "triggers": ["isds", "datovka", "datová schránka"]},
       {"name": "zero-tokens", "tokens": 1551, "triggers": ["zero tokens", "token-free"]},
-      {"name": "autosave", "tokens": 1549, "triggers": ["autosave"]},
+      {"name": "autosave", "tokens": 450, "triggers": ["autosave"]},
       {"name": "budget-watchdog", "tokens": 1546, "triggers": ["budget watchdog"]},
       {"name": "tmonkey-web", "tokens": 1318, "triggers": ["tmonkey web", "tm web"]},
       {"name": "prtsc", "tokens": 1201, "triggers": ["prtsc", "screenshot", "screen"]},
