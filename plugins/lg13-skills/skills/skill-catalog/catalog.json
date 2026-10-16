@@ -1,0 +1,1748 @@
+[
+ {
+  "name": "action-telemetry",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\action-telemetry\\SKILL.md",
+  "description": "Log akci + report top actions + share přes ping_pong. Tom 2026-05-10 cost optimization pro coder/strat/legal.",
+  "category": "legal-filing",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "atom-read-all",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\atom-read-all\\SKILL.md",
+  "description": "Use when receiving any wake event about atoms — enforces reading atom content before any routing decision. Prevents the pattern of skipping atoms with \"not for me\" or \"wrong routing\" without reading.",
+  "category": "komunikace",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "atom-search",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\atom-search\\SKILL.md",
+  "description": "Vyhledá atomy z konkrétní ChatGPT konverzace (conv_id) nebo dle instance/time window, seřadí ASC dle timestamp. Použij kdykoli instance potřebuje přečíst obsah vlákna z RAG/atom pipeline. Trigger: 'najdi atomy', 'přečti vlákno', 'conv_id', 'atom-search', 'seřaď atomy'.",
+  "category": "komunikace",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "attachment-pipeline",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\attachment-pipeline\\SKILL.md",
+  "description": "Orchestrator pro přílohy soudního podání — volá attachment-score, deferred-plans, filing-pipeline. Triggers: 'attachment pipeline', 'zpracuj prilohy', 'prilohy pipeline', 'prilohy check full",
+  "category": "legal-filing",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "attachment-score",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\attachment-score\\SKILL.md",
+  "description": "Ohodnotí přílohy soudního podání (PDF/PNG) dle síly důkazu, relevance a stavu. Výstup: scoring tabulka KEEP/DROP/CONSOLIDATE/DEFER. Triggers: 'attachment score', 'ohodnoť přílohy', 'scoring příloh', 'prilohy check",
+  "category": "legal-filing",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "autoresearch",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\autoresearch\\SKILL.md",
+  "description": "Use when you need autonomous iterative research or improvement — argument strengthening, CDC gate progression, judikatura hunting, document quality loops. Goal + metric + loop until done.",
+  "category": "vyhledavani",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "autosave",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\autosave\\SKILL.md",
+  "description": "Use when context is filling up (edge-check says consider/over, 20+ % used) or Tom says 'autosave', 'ulož a compact', 'context se plní', 'dochází kontext' — state must be saved before compaction.",
+  "category": "session",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "avengers",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\avengers\\SKILL.md",
+  "description": "Team terminator — multiple instances collaborate on shared goal list. Director dispatches, workers execute, sync via ping-pong. Triggers: 'avengers', 'assemble', 'team execute', 'svolat tym', 'team goals', 'multi-instance",
+  "category": "komunikace",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "avengers-meeting",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\avengers-meeting\\SKILL.md",
+  "description": "This skill should be used when the user says \"avengers meeting\", \"team planning\", \"team standup\", \"team plan\", \"avengers briefing\", \"before avengers\", \"team discussion\", or when starting a multi-instance Avengers run and wanting all instances to align on a shared plan first. Runs a structured team planning session — each instance reads goals, writes a mini-plan to a shared file, ping-pong discussion, strat aggregates, Tom approves, then Avengers starts.",
+  "category": "komunikace",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "budget-manager",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\budget-manager\\SKILL.md",
+  "description": "Řízení token budgetu napříč LG13 instancemi. Instance s touto rolí čte aktuální spotřebu, alokuje kapacitu ostatním, varuje před limitem a předává roli dál. Trigger: 'budget manager', 'kdo řídí budget', 'předej budget management', 'jak jsme na tokenech', 'zkontroluj budget'.",
+  "category": "session",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "budget-watchdog",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\budget-watchdog\\SKILL.md",
+  "description": "Proactive token budget monitoring. Watches weekly/session limits AND GitHub Actions bot runs, sends alerts, enforces thresholds across instances. Triggers: 'budget watchdog', 'watch budget', 'hlidej budget', 'token watchdog', 'spust watchdog",
+  "category": "session",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "cge-legal-digest",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\cge-legal-digest\\SKILL.md",
+  "description": "Zpracuje ChatGPT_export vlákno (podle conv_id, napříč všemi jeho re-exporty) do rozsahu/přírůstku zpráv, otaguje je kandidátními F-dokumenty a spustí diamond-sentry + judi-sentry katalogy. Trigger: 'legal digest', 'zpracuj vlákno pro podání', 'cge-legal-digest', 'katalog diamantů z vlákna', 'increment zpracovani legal threadu'.",
+  "category": "legal-filing",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "cge-search",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\cge-search\\SKILL.md",
+  "description": "Fulltextové vyhledávání napříč ChatGPT JSON exporty (ChatGPT_export/*.json, 500+ souborů) a atom daily store (atoms/daily/*.json) podle klíčového slova nebo conv_id, bez ručního otevírání jednotlivých souborů. Trigger: 'najdi v exportech', 'hledej v chatgpt json', 'cge search', 'kde jsme o tomhle mluvili', 'najdi vlákno podle textu', 'prohledej ChatGPT_export'.",
+  "category": "legal-filing",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "chat-reply",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\chat-reply\\SKILL.md",
+  "description": "Use when Tom asks for a reply via cockpit chat / Jarvis v2 chat, or when an instance should send a message back to Tom through the shared chat_messages channel visible in the browser cockpit.",
+  "category": "komunikace",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "chatgpt-ask",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\chatgpt-ask\\SKILL.md",
+  "description": "Posle otazku ChatGPT a ziska odpoved zpet jako LG13 atom. Pouzij kdyz instance potrebuje second-opinion, review, oponenta, gramatiku, nebo vysvetleni. ChatGPT je dobrej policajt a revizor (Tom). Workflow: gpt-bridge (claude-in-chrome) → wake_signal → cge_legal_digest. Trigger: 'chatgpt ask', 'zeptej se chatgpt', 'potrebuju radu chatgpt', 'review v chatgpt', 'second opinion chatgpt', 'oponent', 'recenze chatgpt', 'at to chatgpt zkontroluje'.",
+  "category": "komunikace",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "chatgpt-attach",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\chatgpt-attach\\SKILL.md",
+  "description": "Use when the user wants to SEND FILES (přílohy, PDF, md, obrázek) into a ChatGPT thread or upload a file into a ChatGPT Project sources ('pošli soubor do chatgpt', 'nahraj do Projectu', cgpt --attach), or when attach_failed / upload_failed appears. Text-only send is chatgpt-send.",
+  "category": "komunikace",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "chatgpt-find",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\chatgpt-find\\SKILL.md",
+  "description": "Vyhledá vlákna v ChatGPT historii OFFLINE nad ChatGPT_export/*.json (titul, URL, conv_id, volitelně i obsah zpráv). Bez Edge, bez CDP, bez přihlášení. Podporuje wildcard (*), JSON output, filtr projektu. Trigger: 'chatgpt-find', 'najdi v chatgpt vlakna kde', 'chatgpt find ping-pong', 'hledej chatgpt *', 'seznam vlaken v projektu'.",
+  "category": "komunikace",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "chatgpt-force-read",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\chatgpt-force-read\\SKILL.md",
+  "description": "Prinuti TM (Tampermonkey) aby precetl a ingestoval ChatGPT vlakno — naviguje Edge na thread URL pres Playwright CDP, TM script se spusti automaticky a zachyti konverzaci jako atom do pl_server pipeline. Pouzij kdyz chces 'force TM to read this thread', 'force ingest', 'at to TM precte', 'nacti odpoved z chatgpt do atomu', 'trigger TM ingest na tomto vlaknu'. NETRIGGERUJ kdyz uzivatel jen chce precist thread sam nebo stahnout obsah bez LG13 pipeline.",
+  "category": "komunikace",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "chatgpt-search",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\chatgpt-search\\SKILL.md",
+  "description": "Vyhledá text nebo konverzaci v ChatGPT chatech OFFLINE v lokálním exportu (cgpt_find.py, wave search). Bez Edge/CDP. Trigger: 'hledej v chatgpt', 'najdi konverzaci kde jsem říkal', 'chatgpt search', 'kde jsem to říkal chatgpt', 'prohledej moje chaty'. Použij kdykoli Tom chce najít starší konverzaci nebo konkrétní obsah v ChatGPT historii.",
+  "category": "komunikace",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "chatgpt-send",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\chatgpt-send\\SKILL.md",
+  "description": "Use when the user wants to SEND a message into a specific ChatGPT thread (chatgpt-send, /chatgpt-send, 'posli do chatgpt vlakna'), or when a send via TM Executor returns result=nav, no_input or executor neodpovedel. Not for reading replies (chatgpt-force-read) or iterative review (gpt-bridge).",
+  "category": "komunikace",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "checkpoint",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\checkpoint\\SKILL.md",
+  "description": "> Průběžný snapshot stavu session. Uloží plán do MySQL + git, zapíše handoff note, reportuje stav do Jarvis. Volej kdykoliv v průběhu práce pro \"save point\" — od checkpointu lze pokračovat v nové session bez ztráty kontextu.",
+  "category": "session",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "clipboard-chat",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\clipboard-chat\\SKILL.md",
+  "description": "Use when running or continuing block-by-block ChatGPT review of the CURRENT filing (any F-cycle, not just F39/F38) — reads blocks split automatically from '## ' headings, copies read-prompts to clipboard for ChatGPT, syncs block status (REVIEW/FROZEN/APPROVED) to MySQL, and also serves the live web dashboard at luky.ai-domy.cz/jarvis/. Trigger: 'clipboard chat', 'blok po bloku', 'ChatGPT review bloku', 'jarvis blok', 'final read F62/F.., pošli do ChatGPT'.",
+  "category": "legal-filing",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "cockpit",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\cockpit\\SKILL.md",
+  "description": "This skill should be used when the user asks to \"show cockpit\", \"operation board\", \"status report\", \"/cockpit\", \"what's the state\", \"what do you need\", \"summary of work\". Generates 1-page real-time operation board showing blockers, approvals needed, metrics, and quick links.",
+  "category": "komunikace",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "comm-legal",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\comm-legal\\SKILL.md",
+  "description": "Use when checking ISDS and email communication status for sp. zn. 0 P 29/2026, scanning for new documents, running OCR on attachments, updating evidence catalog (JSON + MySQL isds_podani), or getting a dashboard of what arrived, what was sent, and what's pending. Also use PROACTIVELY mid-session whenever a new ISDS fact emerges (sent confirmation, new inbox item, resolved alert) — don't defer the evidence update to the next explicit invocation.",
+  "category": "legal-filing",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "consistency-check",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\consistency-check\\SKILL.md",
+  "description": "Use when a legal filing document may have stale dates, wrong day counts, or paragraph inconsistencies before render or ship. Triggers: 'consistency check', 'zkontroluj konzistenci', 'datum check', 'dnu check', 'před renderem', 'before ship check",
+  "category": "legal-filing",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "cti-cele",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\cti-cele\\SKILL.md",
+  "description": "Přečte celý long soubor (ChatGPT export, JSON, TXT, MD) v iteracích a extrahuje diamonds/legal facts/CHANGE_MATRIX candidates. Triggers: '/cti-cele', 'přečti celé', 'přečti celý export', 'celý long message', 'need u to read this', 'i need u to read', 'přečti to celé', 'přečti celý soubor', 'cti-cele",
+  "category": "legal-filing",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "ctx-usage-report",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\ctx-usage-report\\SKILL.md",
+  "description": "Use when a larger task has just finished (new F-document version, audit, render, commit) and its token cost must show up in Jarvis /jarvis/usage.php; also when a task used unusually many tokens. Triggers: 'ctx-usage-report', 'zapis spotrebu', 'spotreba po ukolu",
+  "category": "infra",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "deep-read",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\deep-read\\skill.md",
+  "description": "Systematické pomalé čtení VŠECH kanálů (issues + komentáře, ChatGPT exporty zpráva po zprávě) chronologicky interleaved. Každá instance čte vše — relevantní označí ✅, zbytek ⬜ skip, zlaté rady 💎. Deduplikace přes automatický cursor per instance. Role a keywords jsou v editovatelném deep_read_config.json, kotvy se ukládají automaticky. Výstup = checklist + čtenářský deník. Spuštění: python L:/GitHub/lg13-coder/agent/skills/deep_read.py --instance coder. Trigger: \"deep-read\", \"precti vse\", \"cti dusledne\", \"co jsem zamekal\", \"zlate rady z chatgpt\", \"vytahni rady z chatgpt\", \"co tam lezi neprecteho\".",
+  "category": "vyhledavani",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "deep-read-full",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\deep-read-full\\SKILL.md",
+  "description": "Spustí deep_read --full-read pro aktuální instanci. Čte plný text nových zpráv od cursoru (ne jen Haiku-filtered diamonds). Triggers: 'deep-read-full', 'precti vsechny zpravy', 'full read', 'chci videt cely obsah",
+  "category": "vyhledavani",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "deferred-args-sweep",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\deferred-args-sweep\\SKILL.md",
+  "description": "Use when a ChatGPT thread (CGE export) may contain arguments that were deferred to another filing ('patří do F63', 'do doplnění odvolání', 'zatím nezapisovat') and you must verify they did not get lost — catalogs all CGE conversations per conv_id and lists each deferral as MIGRATED?/PENDING? against the latest filing version. Trigger: 'deferred args', 'odložené argumenty', 'co jsme odložili', 'sweep vlákna', 'cge katalog'.",
+  "category": "legal-filing",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "deferred-plans",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\deferred-plans\\SKILL.md",
+  "description": "Uloží nedokončený nebo odložený plán do gitu, aby ho příští session mohla zvednout. Trigger: 'ulož plán', 'odlož to na příště', 'zapiš co jsme nestihli', 'deferred plan', 'po resetu to doděláme', 'ulož na git'. Použij kdykoli session končí s rozpracovanou věcí která není blocker — lépe uložit než nosit v kontextu.",
+  "category": "dev-proces",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "diamond-pick",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\diamond-pick\\SKILL.md",
+  "description": "Automatizuje to co Tom dělá ručně v ChatGPT: čte drafty, exporty, poznámky →",
+  "category": "legal-filing",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "diamond-sentry",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\diamond-sentry\\SKILL.md",
+  "description": "Use when scanning for key insights (diamonds) from conversations, atoms, or documents. Auto-detects current instance (coder/legal/strat) and uses the correct scoring mode. Trigger: 'spusť sentry', 'diamond scan', 'najdi diamondy', '/diamond-sentry'.",
+  "category": "legal-filing",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "diamond-to-matrix",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\diamond-to-matrix\\SKILL.md",
+  "description": "Převede diamonds.json (z diamond-sentry nebo diamond-pick) na prioritizovanou CHANGE_MATRIX. Missing pipeline piece mezi diamond extraction a aplikací změn. Triggers: 'diamond-to-matrix', 'build matrix', 'diamonds na matrix', 'prioritizuj diamonds', 'change matrix z diamonds'.",
+  "category": "legal-filing",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "dnd",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\dnd\\SKILL.md",
+  "description": "Use when you need to focus without interruptions — suspends blocker questions for a set time, converts them to open_questions so work continues uninterrupted.",
+  "category": "legal-filing",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "doc-polish",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\doc-polish\\SKILL.md",
+  "description": "Spustí filing pipeline OD PROSTŘEDKA — re-run analýz jen na problémech z předchozího kola + kompletní test suite (přílohy, datumy, §, počty dní, čitelnost, render, OCR, judge sim, compliance, red team) + lock release do TIME_CAPSULE. Trigger: 'polish', 'doc-polish', 'run from middle', 'nova verze hotova', 'zkontroluj novou verzi', 'serie testu', 'pre-ship check', 'lock release'.",
+  "category": "legal-filing",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "edge-check",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\edge-check\\SKILL.md",
+  "description": "Use when deciding whether to save or let compaction happen: context fills up, footer/statusline shows ctx usage, at the end of a task, or before any manual /compact. Single source of the ctx-usage policy (replaces compact-check).",
+  "category": "session",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "email-read",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\email-read\\SKILL.md",
+  "description": "Use when the user wants to read, search, or check emails from seznam.cz or Outlook. Triggers on \"zkontroluj maily\", \"přečti emaily\", \"hledej email od X\", \"co je v mailu\", \"nové zprávy\", \"email search\", \"inbox\", \"seznam mail\", \"outlook mail\". Reads IMAP inbox, searches by sender/subject/keyword, returns summaries.",
+  "category": "komunikace",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "file-catalog-search",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\file-catalog-search\\skill.md",
+  "description": "Use when searching for a file by name or keyword anywhere on the system. Searches a pre-built TREE catalog (227k+ files) instead of slow filesystem scan or repeated Glob calls.",
+  "category": "vyhledavani",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "filing-pipeline",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\filing-pipeline\\SKILL.md",
+  "description": "Kompletni pipeline pro pripravu pravniho podani. Phase 1 = Build (konsolidace, struktura, zestihleni, podpurne materialy). Phase 2 = Verify (5x seriova kontrola jinou instanci: validation, compliance, opposition, security, legal+law). Phase 3 = 5 LOCKS + send. Trigger: 'filing pipeline', 'priprav podani', 'konsoliduj', 'kontrola podani'.",
+  "category": "legal-filing",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "ftp",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\ftp\\skill.md",
+  "description": "FTP upload/download/list na ftpx.forpsi.com (luky.ai-domy.cz). Trigger: \"/ftp upload\", \"/ftp ls\", \"/ftp download\", \"nahraj na server\", \"stáhni ze serveru\", \"co je na FTP\", \"deploy na web\". Credentials z L:/LG13/runtime/secrets/ftp_secrets.json.",
+  "category": "infra",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "git-tmonkey-search",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\git-tmonkey-search\\SKILL.md",
+  "description": "Search v L:/GitHub/lg13-tampermonkey/ repo (userscripts) přes gh CLI + Grep fallback. Trigger: 'git tmonkey', 'userscript search', 'najdi v TM repo'.",
+  "category": "tm-ingest",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "github-actions-if-yaml",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\github-actions-if-yaml\\SKILL.md",
+  "description": "Use when writing GitHub Actions job or step `if:` conditions with multiple expressions joined by || or && — especially when the condition spans multiple lines. Symptoms of wrong approach: job is always skipped, condition evaluates to empty string, `##[debug]Evaluating condition` shows newlines.",
+  "category": "ostatni",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "gpt-bridge",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\gpt-bridge\\SKILL.md",
+  "description": "Use when Claude needs to ask an existing ChatGPT thread a question and continue a multi-round review (advisory, red-team, controlling, chapter-by-chapter filing review) until convergence - via the already logged-in Chrome (claude-in-chrome), never Edge and never the OpenAI API. Triggers - \"zeptej se ChatGPT\", \"gpt bridge\", \"oponentura s ChatGPT\", \"iterativní review\", \"ChatGPT teammate\".",
+  "category": "komunikace",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "heartbeat",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\heartbeat\\SKILL.md",
+  "description": "Keep-alive ping-pong loop + keep-awake clause. Triggers: 'heartbeat', 'keep awake', 'stay alive', 'stuj na nohach', 'keep alive",
+  "category": "komunikace",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "i-can-hear-u",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\i-can-hear-u\\SKILL.md",
+  "description": "**This skill should be used when** the user asks `/i-can-hear-u`, \"spust listener\", \"poslouchej vsechny kanaly\", \"wake aggregator\", \"listen all\".",
+  "category": "tm-ingest",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "isds",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\isds\\skill.md",
+  "description": "> ISDS datová schránka — použij tento skill pokaždé, když má instance odeslat DS, zobrazit přijaté zprávy, hledat v přijatých nebo odeslaných DS, nebo stáhnout zprávy z datové schránky. Skill pokrývá: odeslání (--send), inbox (--inbox), odeslané (--sent), stažení zprávy (--download). VYŽADUJE token: uživatel musí uvést token, jinak skill zastav.",
+  "category": "legal-filing",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "isds-ship-with-capsule",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\isds-ship-with-capsule\\SKILL.md",
+  "description": "| Řídí celý proces odeslání soudního dokumentu přes ISDS pro LG13 instanci t002. Zahrnuje: fyzická verifikace příloh, live ISDS ověření DS adresáta, 5 LOCK UL check (legal/t002/strat/coder/tom), time capsule (min. 60 min pro soud), /cockpit report každé kolo loopu, a post-ship notifikace. VŽDY použij tento skill když: \"ship wave\", \"odešli datovku\", \"spusť ISDS filing\", \"time capsule wave\", \"loop dokud se nepošle\", \"wave 1 ship\", \"wave 2 ship\", \"/isds-ship-with-capsule\", nebo kdykoli jde o pipeline odeslání dokumentu přes datovou schránku s lock mechanismem. NIKDY nenechávej pipeline bez tohoto skillu — každý krok je kritický.",
+  "category": "legal-filing",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "issue-sync",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\issue-sync\\SKILL.md",
+  "description": "This skill should be used when the user asks to \"sync issues\", \"read issues\", \"issue digest\", \"co je nového na issues\", \"issue-sync\", or wants a delta digest of GitHub issues + comments since last read with optional keyword filtering. Maintains local SQLite cache of all issues in `LG13-21/legal-ship-2026` and returns per-instance anchored JSON/markdown.",
+  "category": "vyhledavani",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "judi-sentry",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\judi-sentry\\SKILL.md",
+  "description": "Use when searching for relevant Czech court judgments (ÚS/NS), linking diamond findings to specific cases, or building/querying the judikát index from RTF files in ChatGPT_export/.",
+  "category": "legal-filing",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "lare",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\lare\\SKILL.md",
+  "description": "> Legal-specific Argument Ranking Engine. Hodnotí právní argumenty 17-sloupcovým scoringem (síla, bezpečnost, dopad, riziko + 10 legal-specific kritérií: Compliance s novelou 2026, Evidence backing, Time-sensitivity, per-document mapping, R-static/R-reversal split, Tom-weight bonus, C-XX/M-XX/N-XX/D-XX integrace). Output: priorizovaný seznam argumentů s kategoriemi CORE/SUPPORT/CONTEXT/EXCLUDED/SUMMARY a per-document bundles (PR/§909/40_06/195). Použití: pre-prioritizace argumentů před F11.x review, Phase 2 Verify input, DÁVKA 3, výživné L04, AT podání. VŽDY použij tento skill, když Tom (nebo legal/strat) zmíní: /lare, lare, argument ranking, ARE matrix, score arguments, prioritize arguments, argument bundle, CORE/SUPPORT/CONTEXT/EXCLUDED, ARE_F11, LARE_F11, legal argument evaluation, argument scoring, compliance scoring, Tom-weight.",
+  "category": "legal-filing",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "lazy_boy",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\lazy_boy\\SKILL.md",
+  "description": "Alias for atom-read-all. Invoke when any instance skips atoms/wake events without reading content. Enforces \"every wake event = read content first\" directive.",
+  "category": "komunikace",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "legal-daily-brief",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\legal-daily-brief\\SKILL.md",
+  "description": "**Trigger:** \"spusť daily brief\", \"legal brief\", \"/legal-daily-brief\", \"denní přehled\"",
+  "category": "legal-filing",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "legal-total-analysis",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\legal-total-analysis\\SKILL.md",
+  "description": "Lean meta-skill pre-flight audit DÁVKY právního podání před F1X.4 capsule build a ISDS odesláním. Generuje GO/NO-GO verdict ze 3 unique kroků (DON'T grep, Cross-check, Verdict) + reuse existing optimize/audit výstupů 91-99 + audit_report. Trigger: \"total analysis\", \"total analyza\", \"pre-flight\", \"GO/NO-GO check\", \"before capsule\", \"before ISDS\", \"F13 audit\", \"audit dávky\".",
+  "category": "legal-filing",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "session-end",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\lg13-end\\SKILL.md",
+  "description": "Ukončení session. Alias pro restart. Trigger: 'session end', 'konec session', 'ukonči session', 'zavíráme', '/session-end'.",
+  "category": "session",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "lg13-init",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\lg13-init\\SKILL.md",
+  "description": "Inicializace session — načte stav, přečte frontu, tmonkey, pl_stats, vygeneruje briefing. Trigger: 'init', 'start session', 'začínáme', '/session-init', nebo automaticky na začátku každé nové konverzace. Každá instance MUSÍ spustit na začátku práce.",
+  "category": "session",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "session-save",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\lg13-save\\SKILL.md",
+  "description": "Průběžné uložení stavu session. Alias pro save-min. Trigger: 'save', 'ulož stav', 'checkpoint', '/session-save'.",
+  "category": "session",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "listen-to-the-music",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\listen-to-the-music\\SKILL.md",
+  "description": "`/i-can-hear-u` je širší startup skill (8 kroků: daemon+Monitor+CGE+CDC+issues+Jarvis+PRTSC+handoff sem) — jeho Krok 8 volá TUTO skill, pokud dorazí nový materiál. Tahle skill = (a) architektura daemon/Monitor kanálů níže + (b) sekce \"PROCEDURE: New-Research Ingestion Pipeline\" (čtení→extrakce→prior",
+  "category": "tm-ingest",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "load-from-store",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\load-from-store\\SKILL.md",
+  "description": "Načte session plán/memory z MySQL (přes db_query) nebo git fallback. Triggery: load from store, remember from mysql, load my memory, nacti plan, obnov memory.",
+  "category": "session",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "locks-workflow",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\locks-workflow\\SKILL.md",
+  "description": "> Řídí 5-locks schvalovací workflow pro soudní a formální podání v systému LG13. Verze 3 (Tom directive 2026-07-08): LEGAL → STRAT → CHATGPT → TIME → DDD → TOM → T002. Legal max 3 kroky. Strat all control + ChatGPT review povinný. TIME = web up + visual OCR. DDD = mechanický gate (datumy, dny, admin, přílohy) těsně před Tomovým finálním čtením. Tom read final → KONEC STOP → T002 send. VŽDY použij tento skill, když uživatel zmíní: lock strat, lock legal, lock ddd, lock t002, lock tom, lock send, lock status, lock check, lock cancel, lock init, 5 locks, schvalovací workflow, zámky podání, meta.json locks, STRAT/LEGAL/DDD/T002/TOM/CAPSULE check, F10 konvence, S+/L+/O+/T+/C+ notace, time capsule podání, forenzní check dokumentu, compliance check souborů, visual check, ChatGPT review, total analysis, fast read, web up.",
+  "category": "legal-filing",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "mysql",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\mysql\\SKILL.md",
+  "description": "MySQL dotaz přes luky.ai-domy.cz/api/db_proxy.php. Trigger: \"/mysql q: SELECT ...\", \"/mysql q: path/to/query.sql\", \"spusť SQL\", \"dotaz do DB\", \"co je v tabulce X\", \"mysql select\", \"mysql insert\", \"ukaž tabulky\". Podporuje inline SQL nebo cestu k .sql souboru. Bezpečný — blokuje DROP DATABASE, DROP TABLE, TRUNCATE.",
+  "category": "infra",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "ocr-git",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\ocr-git\\SKILL.md",
+  "description": "OCR pipeline pro court/AT/OSPOD evidence — scan + index + search. Wrapper kolem legal_ocr_catalogue.py. Trigger: 'ocr', 'scan PDF', 'ocr search', 'ocr stats'.",
+  "category": "legal-filing",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "ping-pong",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\ping-pong\\SKILL.md",
+  "description": "LG13 cowork file-based komunikacni protokol pro inter-instance dialog (legal ↔ strat ↔ coder ↔ ...). Atomic JSON files v L:/LG13/runtime/ops/ping_pong/ + Monitor watcher + budget tracker. Low-cost (~100 tokenu/event) misto queue spamu. Trigger: 'ping pong', 'pong reply', 'odpovez Likovi pingponem', 'arm pingpong watcher', 'check ping pong'.",
+  "category": "komunikace",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "pipeline",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\pipeline\\SKILL.md",
+  "description": "Filing pipeline pro soudni podani. Mody: 'pipeline complete' (ph1→ph3), 'pipeline resume phN' (phN→ph3). Freeze guard: LOCK 2+ blokuje complete, povoli jen resume ph3. Token-efektivni: skripty > cteni velkych souboru do kontextu. Trigger: 'pipeline complete', 'pipeline resume ph2', 'pipeline status'.",
+  "category": "legal-filing",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "plan-to-git",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\plan-to-git\\SKILL.md",
+  "description": "Generates commented multi-step plan as GitHub issue for ChatGPT guided session. Templates for research, review, filing. Triggers: 'plan-to-git', 'guided session', 'chatgpt plan', 'priprav plan', 'create plan issue', 'plan na git",
+  "category": "dev-proces",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "pre-ship-external-prompts",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\pre-ship-external-prompts\\SKILL.md",
+  "description": "Generuje prompty pro **external pre-ship analýzu** od CDC (Claude Desktop Cowork) a ChatGPT.",
+  "category": "komunikace",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "prtsc",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\prtsc\\SKILL.md",
+  "description": "Podiva se na posledni screenshoty z OneDrive Screenshots slozky a precte jejich obsah pomoci token-free OCR (Windows OCR API nebo Tesseract). Trigger: 'prtsc', '/prtsc', 'podivej se na screenshoty', 'co je na poslednim screenshotu', 'precti posledni screenshot'. Pouzij kdykoli uzivatel chce precist nebo popsat obsah nedavnych screenshotu.",
+  "category": "legal-filing",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "rag-search",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\rag-search\\SKILL.md",
+  "description": "Search indexed knowledge base (FTS5 sandbox) přes ctx_search MCP. Token-efficient retrieval místo full-file Read. Trigger: 'rag', 'search docs', 'najdi v db'.",
+  "category": "tm-ingest",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "rain",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\rain\\SKILL.md",
+  "description": "Diagnóza + oprava toku atomů z TM ingesta do monitor-arm instancí. Triggery: 'rain', 'neteče', 'nepršelo', 'atomy netečou', 'atom flow', 'TM ingest', 'i-can-hear-u check",
+  "category": "tm-ingest",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "restart",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\restart\\SKILL.md",
+  "description": "Session transition: plan-to-store → remember → clear → (nové okno) remember from MySQL → plan-from-store. Přechod do nové session bez ztráty kontextu. Triggery: restart, session transition, new session, přechod do nové session, nová session.",
+  "category": "session",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "rocket-launcher",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\rocket-launcher\\SKILL.md",
+  "description": "Spravuje ISDS rocket launcher engine (`isds_rocket_<FC>.py`) pro aktuální F-cyklus, generovaný",
+  "category": "legal-filing",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "rr",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\rr\\SKILL.md",
+  "description": "Use when you need a quick status snapshot — current task, token budget, blockers, ping-pong state. Run before /restart or as regular check-in.",
+  "category": "legal-filing",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "rt",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\rt\\SKILL.md",
+  "description": "Spocita oba scores (RTG + RTS) a vyda spojeny report s ship-ready verdict.",
+  "category": "vyhledavani",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "rtg",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\rtg\\SKILL.md",
+  "description": "Vrati RTG score (Ready To Go = muze zacit submission workflow). Threshold > 0.95.",
+  "category": "vyhledavani",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "rts",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\rts\\SKILL.md",
+  "description": "Vrati RTS score (Ready To Ship = muze zmacknout datovku). Threshold > 0.98.",
+  "category": "vyhledavani",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "save-min",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\save-min\\SKILL.md",
+  "description": "Token-min save (3 kroky): queue --done + STAV append + save_checkpoint + edge calc. NIKDY /compact bez prior save min. Alias: volá save-to-store + remember.",
+  "category": "session",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "save-to-store",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\save-to-store\\SKILL.md",
+  "description": "Uloží aktuální session plán/memory do MySQL (přes db_query) + git backup. Triggery: save my memory, save plan to mysql, save to store, uloz plan, uloz memory.",
+  "category": "session",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "self-context-slim-update",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\self-context-slim-update\\SKILL.md",
+  "description": "Use when context usage >50%, memory files bloated or duplicated, index overhead growing, or preparing for major task requiring fresh context",
+  "category": "ostatni",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "session-bootstrap-vnext",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\session-bootstrap-vnext\\SKILL.md",
+  "description": "DEPRECATED — replaced by super-start. Use /lg13-skills:super-start instead.",
+  "category": "session",
+  "deprecated": true,
+  "no_desc": false
+ },
+ {
+  "name": "skill-creator",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\skill-creator\\SKILL.md",
+  "description": "Creates a new skill from template + git commit. Triggers: 'skill creator', 'new skill', 'create skill', '/skill-creator",
+  "category": "dev-proces",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "skill-picker",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\skill-picker\\SKILL.md",
+  "description": "Use when the user asks \"which skill should I use?\", \"what skill for X?\", \"help me pick a skill\", \"skill picker\", \"skill guide\", or when an instance needs to decide which skill to invoke. Returns categorized skill catalog with decision trees for both Tom and all instances (coder/strat/legal).",
+  "category": "vyhledavani",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "skills-list",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\skills-list\\SKILL.md",
+  "description": "Use when you need to see all available skills as a formatted text table. Shows skill name, namespace, and short description for every installed skill.",
+  "category": "ostatni",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "skills-manual",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\skills-manual\\SKILL.md",
+  "description": "Use when you need detailed documentation for a specific skill (with skill name as argument) or a short manual for all skills (without argument, paginated 20 per page).",
+  "category": "ostatni",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "slack-listen",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\slack-listen\\SKILL.md",
+  "description": "Persistentní Slack listener — čte #lg13 (C0B3X5XC0JU), parsuje WAKE:<inst>:<msg> signály, routuje do ping-pong. Kombinuj s tmonkey-listen pro dual-channel wake. Trigger: 'slack listen', 'arm slack', 'slack wake', 'sleduj slack'.",
+  "category": "komunikace",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "sr",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\sr\\SKILL.md",
+  "description": "> Kompletní session startup skill. Volej při: nové session, po /clear, po probuzení z idle, z launcheru. Provede: load-from-store → remember → pl_server health check → i-can-hear-u → issue-sync → comm-legal (jen instance legal) → deep-read → ping-pong → low-food-slow-down → brainstorming → writing-plans → executing-plans → vlastnak. Výsledek: fresh session, poslouchám všechny kanály, plán načten, vlastní goal definován.",
+  "category": "session",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "stop-stupid-questions",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\stop-stupid-questions\\SKILL.md",
+  "description": "Use when about to stop and ask Tom a small question — \"mám to commitnout?\", \"co přesně potřebuješ?\", \"chceš A nebo B?\", \"mám pokračovat?\" — or when ending a turn with an open follow-up question, or waiting for Tom's approval on a reversible step.",
+  "category": "ostatni",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "strat-end",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\strat-end\\SKILL.md",
+  "description": "Strat session end. Alias pro restart. Trigger: 'konec', 'zavíráme', 'strat end', 'ukonči strat session'.",
+  "category": "session",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "strat-init",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\strat-init\\SKILL.md",
+  "description": "Strat session init — tmonkey, fronta, pl_stats, failed tasky, t002 dohled, daily briefing. Trigger: 'init' v strat instanci.",
+  "category": "session",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "strat-save",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\strat-save\\SKILL.md",
+  "description": "Strat session save — checkpoint. Alias pro save-min (strat varianta). Trigger: 'save', 'ulož stav', 'checkpoint'.",
+  "category": "session",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "super-start",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\super-start\\SKILL.md",
+  "description": "Use when starting a new full cowork session — arms all channels, reads all inboxes, sets goal, activates superpowers and team tools. Replaces session-bootstrap-vnext.",
+  "category": "komunikace",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "team-launcher",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\team-launcher\\SKILL.md",
+  "description": "> Spouští jednu nebo více LG13 instancí autonomně — headless nebo s oknem — bez Tomovy přítomnosti. Použij VŽDY když chceš: (a) spustit celý tým nebo konkrétní instance (coder, legal, strat, jcu…), (b) sequential start (strat první → broadcast → ostatní), (c) spustit instanci na pozadí bez okna, (d) spustit subagenta pro konkrétní task s custom promptem, (e) restartovat crashlou instanci s init promptem. Invoke when: \"spusť tým\", \"launch coder\", \"start instances\", \"spusť strat a ostatní\", \"team start\", \"autonomous launch\", \"spusť subagenta\", \"start headless\", \"spusť na pozadí\", \"restart instance\", \"pusti legal jako subagenta\", \"spusť jcu s promptem\", \"sequential launch\".",
+  "category": "komunikace",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "team-speak",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\team-speak\\SKILL.md",
+  "description": "Use when Tom types a message that should be forwarded to all active ping-pong instances simultaneously — broadcasts the message as if Tom wrote it to each instance's inbox.",
+  "category": "komunikace",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "terminator",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\terminator\\SKILL.md",
+  "description": "Goal-list executor from git issue. Iterates goals, time-limited questions for blockers, continues without Tom. Triggers: 'terminator', 'execute goals', 'work the list', 'go through goals', 'splň goals",
+  "category": "legal-filing",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "thread-harvest",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\thread-harvest\\SKILL.md",
+  "description": "This skill should be used when the user says \"přečti vlákna\", \"co leží nevykonáno\", \"projdi exporty\", \"harvest instrukce\", \"co jsem říkal v jarvis\", \"thread-harvest\", or when starting a session and suspecting unread directives in ChatGPT exports, issues, atoms or JSONs. Systematically reads all knowledge sources and extracts unexecuted directives, tasks, and instructions per instance.",
+  "category": "vyhledavani",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "tmonkey",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\tmonkey\\SKILL.md",
+  "description": "Process fresh ChatGPT tmonkey exports — read inbox, identify Tom's requests [Ty:], route to instances, archive duplicates. Trigger when user says 'tmonkey', 'čti tmonkey', 'nové soubory z chatgpt', or when checking for fresh ChatGPT exports. Use this skill from ANY instance — it adapts to available file access.",
+  "category": "tm-ingest",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "tmonkey-arm",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\tmonkey-arm\\SKILL.md",
+  "description": "Arm Monitor watcher na <inst>_stack.jsonl mtime change → notification → wake instance pro pickup. Bez polling, bez tokenů. Trigger: 'tmonkey arm', 'arm watcher', 'pingpong arm'.",
+  "category": "tm-ingest",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "tmonkey-bot",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\tmonkey-bot\\SKILL.md",
+  "description": "Use when: \"tmonkey\", \"co přišlo z chatgpt\", \"pošli příkaz do chatgpt\", \"tmonkey bot\", \"tmonkey status\"",
+  "category": "tm-ingest",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "tmonkey-diag",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\tmonkey-diag\\SKILL.md",
+  "description": "Diagnostika tmonkey atom flow health — pl/stats, atom_lookup, dispatcher routing, kde se ztrácí APPROVED→DISPATCHED, IGNORED ratio, per-instance feed za 24h. Detekuje regresi (DISPATCHED <2% nebo IGNORED >85%). Trigger: 'tmonkey health', 'proč nechodí tmonkey', 'atom dispatcher check', 'tmonkey diag', 'pl_stats'.",
+  "category": "tm-ingest",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "tmonkey-listen",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\tmonkey-listen\\SKILL.md",
+  "description": "Persistentní příjem atomů — instance může normálně pracovat, každá nová zpráva ji probudí okamžitě. Jako mobil u hlavy: nic nedělej = spíš, ale zvonění uslyšíš vždy. Trigger: 'tmonkey listen', 'listen mode', 'arm listen', 'probudit při zprávě', 'neustálý příjem'.",
+  "category": "tm-ingest",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "tmonkey-monitor",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\tmonkey-monitor\\SKILL.md",
+  "description": "Zapni zvonění — arm Monitor na tmonkey_arm.py, každý nový atom okamžitě probudí instanci. Normálně = zvonění vypnuto (tmonkey = manuální čtení). Monitor = zvonění zapnuto. Trigger: 'tmonkey monitor', 'zapni zvonění', 'arm monitor', 'chci být buzen', 'real-time atomy'.",
+  "category": "tm-ingest",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "tmonkey-web",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\tmonkey-web\\SKILL.md",
+  "description": "Open Chrome, navigate to ChatGPT LG13 project, open recent conversations in sequence so Tampermonkey capture script saves them to L:\\\\LG13\\\\inbox\\\\chatgpt\\\\. Trigger: 'tmonkey web', 'tmonkey chrome', 'scrape chatgpt', 'zachyť chatgpt', 'otevři chatgpt a stáhni'. Use from any cowork instance with Chrome MCP access (strat, main, coder, web).",
+  "category": "tm-ingest",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "token-limit-read",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\token-limit-read\\SKILL.md",
+  "description": "Read current Claude usage (session % / week % / plan tier) z TM script ingested data. Token-free read, žádný API call.",
+  "category": "session",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "tom-notify",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\tom-notify\\SKILL.md",
+  "description": "This skill should be used when any instance needs to notify Tom urgently, send him a question, escalate a blocker, request a review, or wake him up. Use for \"notify Tom\", \"send urgent\", \"BLOCKER escalate\", \"wake Tom\", \"ask Tom\", \"/tom-notify\". Also describes the GDRV/IFTTT filesystem notification protocol for all instances.",
+  "category": "komunikace",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "tool-picker",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\tool-picker\\SKILL.md",
+  "description": "Decision tree: který tool kdy. Save-the-tokens hierarchie 1-7 + anti-patterns. Trigger: 'co použít', 'tool', 'Glob vs Grep', 'tool guide'.",
+  "category": "vyhledavani",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "uklid-coder",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\uklid-coder\\SKILL.md",
+  "description": "Use for coder's regular maintenance duties — skills registry update, queue check, heartbeat, git repo sync, file-catalog refresh, and save-min. Run periodically or before /restart.",
+  "category": "komunikace",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "unlock-gate",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\unlock-gate\\skill.md",
+  "description": "> Multi-step unlock workflow pro soudní podání F-cyklus. Spustí automated checks (LOCK 1–4) pro jeden soubor, vygeneruje unlock certifikát nebo fix list. Tom visual check = LOCK LAST (nikdy ne LOCK 1). Proklik na analýzu vždy přiložen k výsledku. VŽDY použij tento skill, když uživatel zmíní: unlock, lock gate, unlock cert, run checks, fix list, change matrix, unlock-gate, zamky F38, lock status file, F38 certifikat.",
+  "category": "legal-filing",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "VAM",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\VAM\\SKILL.md",
+  "description": "Use when analyzing document visual attention flow, scoring scan-readability, identifying dead zones, or optimizing court filing layout for first-impression impact",
+  "category": "legal-filing",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "vlastnak",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\vlastnak\\SKILL.md",
+  "description": "Use when an instance needs to write its own session goal prompt — a first-person startup prompt with clear done conditions, displayed on screen and copied to clipboard.",
+  "category": "ostatni",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "web-up",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\web-up\\SKILL.md",
+  "description": "Sestaví review web (HTML + ZIP + PDF přílohy) z aktuálního F-cyklu a nasadí ho FTP na `luky.ai-domy.cz/web_up/`.",
+  "category": "dev-proces",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "work-mode",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\work-mode\\SKILL.md",
+  "description": "Self-paced heartbeat loop — team nebo solo work mode. Bootstrap: Monitor arm + ScheduleWakeup fallback + read-react-report cyklus. Trigger: 'work mode', '/work-mode', 'work mode team', 'work mode solo', 'nastav loop', 'spusť heartbeat loop'.",
+  "category": "komunikace",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "writing-doc",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\writing-doc\\SKILL.md",
+  "description": "Use when authoring or editing Czech court filings (návrhy, odvolání, doplnění, podněty, odvolání EXE) — covers mandatory document structure, § citation verification, no-internal-markers rule, CDC gate checklist, and versioning discipline",
+  "category": "legal-filing",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "zero-tokens",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\zero-tokens\\SKILL.md",
+  "description": "Zero-token execution stack: Python, Git, Ollama, context-mode. Kdy co použít, konkrétní snippety. Trigger: 'zero tokens', 'bez tokenů', 'python script', 'ollama query', 'git search', 'context-mode', 'ctx_', 'jak ušetřit tokeny'.",
+  "category": "session",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "ai-cleaning",
+  "source": "user",
+  "path": "C:\\Users\\tom\\.claude\\skills\\ai-cleaning\\SKILL.md",
+  "description": "Use when a text or file is about to leave the working folder (court filing, letter, attachment, exported chat answer) and may still carry chat filler, internal markers (F62, CHANGE_MATRIX, STOP LIST), review scaffolding (PASS/VERDIKT), emoji, ChatGPT export artifacts (LG13_META blocks, \"Worked for 10s\", trailing file names, oaicite/utm links), or tool metadata in PDF/DOCX (producer, author).",
+  "category": "legal-filing",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "big-file-read",
+  "source": "user",
+  "path": "C:\\Users\\tom\\.claude\\skills\\big-file-read\\SKILL.md",
+  "description": "Use when asked to read/analyze a huge single source (chat export JSON, log file, long transcript, big spreadsheet dump) and extract structured findings — especially when the naive approach would be \"read it all in sequential chunks\", which risks losing signal (diamonds) in the noise (hlušina) on anything beyond a few hundred KB.",
+  "category": "vyhledavani",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "briefing-legal",
+  "source": "user",
+  "path": "C:\\Users\\tom\\.claude\\skills\\briefing-legal\\SKILL.md",
+  "description": "Use when Tom wants a status overview of not-yet-sent court filings (F-documents still in progress — e.g. F41/F42/F43/F48/F49), wants to see completion score/deadline/age/blockers per filing, or wants to pick one to resume work on.",
+  "category": "legal-filing",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "budget-pacer",
+  "source": "user",
+  "path": "C:\\Users\\tom\\.claude\\skills\\budget-pacer\\SKILL.md",
+  "description": "Use to pace this instance's token consumption against the live 5-hour/7-day account usage limit, self-capping to a fair share so other instances (coder/strat) keep room to work. Replaces token-limit-read + low-food-slow-down + budget-manager for this purpose — reads the live statusline dump directly instead of stale TM data. Trigger words - \"budget pacer\", \"naplanuj limit\", \"hlidej spotrebu\", \"nech misto pro codera\", \"pace yourself\", \"budget check\".",
+  "category": "session",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "bumping-f-filing-version",
+  "source": "user",
+  "path": "C:\\Users\\tom\\.claude\\skills\\bumping-f-filing-version\\SKILL.md",
+  "description": "Use when an F-numbered filing in legal-ship-2026 (F62, F64, F66...) needs a new version after a ChatGPT review, Tom's decision, or new evidence, or when its PDF, meta.json, F_REGISTRY row or _Actual_Fx copy are out of sync with the newest .md.",
+  "category": "legal-filing",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "case-search",
+  "source": "user",
+  "path": "C:\\Users\\tom\\.claude\\skills\\case-search\\SKILL.md",
+  "description": "Use when you need to find something in the legal case materials but don't know which of the 7+ domain-specific search tools (ChatGPT exports, atoms, files, physical spis OCR, git, MySQL, indexed memory) actually has it — routes the query to the right backend(s) in priority order instead of guessing or grepping blind.",
+  "category": "vyhledavani",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "change-discipline",
+  "source": "user",
+  "path": "C:\\Users\\tom\\.claude\\skills\\change-discipline\\SKILL.md",
+  "description": "Use when receiving a stream of incremental edits/ideas for the same document (pasted ChatGPT excerpts, dictated notes, one-line corrections arriving one after another) — before editing, rendering, or touching a launcher/config file in response to each one individually.",
+  "category": "komunikace",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "chatgpt-legal-discussion-review",
+  "source": "user",
+  "path": "C:\\Users\\tom\\.claude\\skills\\chatgpt-legal-discussion-review\\SKILL.md",
+  "description": "Use when Tom wants Claude legal to discuss or review a filing (F-document) directly with the ChatGPT reading thread - independent audit first, diff with ChatGPT, agreed CHANGE_MATRIX, new version, then final freeze audit. Trigger - \"diskutuj to s chatgpt\", \"freeze audit\", \"pošli chatgpt\", \"protičtení\", \"joint audit\".",
+  "category": "legal-filing",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "ddd",
+  "source": "user",
+  "path": "C:\\Users\\tom\\.claude\\skills\\ddd\\SKILL.md",
+  "description": "Řeší opakovaný problém z této session: kdykoli se posune datum podpisu/podání, každý den-počet v textu (159→160, +176, +98...) se musí ručně přepočítat a dohledat všude, kde se vyskytuje. `/ddd` to automatizuje přes placeholdery přímo ve zdrojovém .md, plus ověří administrativní konzistenci (sp. zn.",
+  "category": "ostatni",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "digest-to-filing",
+  "source": "user",
+  "path": "C:\\Users\\tom\\.claude\\skills\\digest-to-filing\\SKILL.md",
+  "description": "Use when cge_legal_digest.py (or a direct diamond_sentry.py run) has produced a batch of candidate legal arguments/diamonds from a ChatGPT thread, and the next step is deciding what to do with each one — apply to an F-document, skip as duplicate, or isolate as sensitive — rather than just reading the output.",
+  "category": "legal-filing",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "export-chatgpt-thread",
+  "source": "user",
+  "path": "C:\\Users\\tom\\.claude\\skills\\export-chatgpt-thread\\SKILL.md",
+  "description": "Use when a ChatGPT thread must be exported to L:/GitHub/legal-ship-2026/ChatGPT_export via Claude in Chrome (page refresh, then the SELECT and EXPORT buttons added by the Tampermonkey export script) — typically as the fallback when away_watch.py reports refresh_failed because Edge CDP on :9222 is down. Trigger words - \"exportuj vlákno\", \"export chatgpt thread\", \"refresh_failed\".",
+  "category": "komunikace",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "f-cycle-bootstrap",
+  "source": "user",
+  "path": "C:\\Users\\tom\\.claude\\skills\\f-cycle-bootstrap\\SKILL.md",
+  "description": "Use when starting a brand-new F-numbered filing (Fxx) in legal-ship-2026 — creates the folder, subfolders, meta.json lock scaffold, searches disk for related material, runs diamond-sentry and judi-sentry, renders an initial v1 draft, and registers the new F-cycle in governance/F_REGISTRY.md.",
+  "category": "legal-filing",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "go-on",
+  "source": "user",
+  "path": "C:\\Users\\tom\\.claude\\skills\\go-on\\SKILL.md",
+  "description": "Use when asked to continue, finish or move an already existing filing draft forward (\"pokračuj\", \"go on\", \"dodělej\", \"posuň F63\"), especially after time away or after new discussion, ChatGPT exports or atoms arrived. Not for starting a new filing from scratch.",
+  "category": "legal-filing",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "image-ocr-catalog",
+  "source": "user",
+  "path": "C:\\Users\\tom\\.claude\\skills\\image-ocr-catalog\\SKILL.md",
+  "description": "Use when a folder of photographed documents (HEIC/JPG/PNG, e.g. exekuce spis, OSPOD spis, scanned pages) needs OCR sidecar text files, a per-folder catalog, and registration in the one central legal OCR index — not for single already-digital PDFs with a text layer (those don't need OCR).",
+  "category": "legal-filing",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "jarvis",
+  "source": "user",
+  "path": "C:\\Users\\tom\\.claude\\skills\\jarvis\\SKILL.md",
+  "description": "Use when an F-document (court filing under legal-ship-2026) gets a new version and Tom needs to review it chapter-by-chapter on the web dashboard, or when pulling Tom's web-approved/frozen block statuses back into the session.",
+  "category": "legal-filing",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "job-queue",
+  "source": "user",
+  "path": "C:\\Users\\tom\\.claude\\skills\\job-queue\\SKILL.md",
+  "description": "Use when a CLI instance (legal, coder, strat) must hand work to another worker or to ChatGPT in the browser and get the result back without waiting — enqueue a job, let a runner process it, read the result. Trigger words - \"pošli do ChatGPT a vrať odpověď\", \"job queue\", \"enqueue\", \"review v ChatGPT automaticky\", \"cgpt_runner\".",
+  "category": "komunikace",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "law-library",
+  "source": "user",
+  "path": "C:\\Users\\tom\\.claude\\skills\\law-library\\SKILL.md",
+  "description": "Use when drafting/auditing a Czech court filing and you need the verbatim wording of a § (paragraf) or to confirm which zákon contains a given §. Searches the LOCAL offline statute collection at C:\\Users\\tom\\Documents\\tmonkey_legal\\Law_library (20 CZ zákonů, full text + filtered §§ + JSON index). Trigger words: \"co říká § ...\", \"ověř znění §\", \"který zákon\", \"doslovné znění\", \"cituj § ...\", \"NOZ/ZŘS/OSŘ/ZSPOD §\".",
+  "category": "legal-filing",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "legal-terminal-comm",
+  "source": "user",
+  "path": "C:\\Users\\tom\\.claude\\skills\\legal-terminal-comm\\SKILL.md",
+  "description": "Přímá strat ↔ Lik (legal cowork) komunikace přes task queue + soubory, když Lik běží v `claude` CLI terminálu (ne Claude Desktop cowork). Použij vždy, když Tom říká fráze typu „push Likovi …\", „check Lik\", „pošli Likovi\", „směr Likovi\", „direct komunikace s Likem\", „Lik v terminálu napiš …\", nebo když strat má přebrat odpověď, kterou Lik položil do legal_outbox/. Pokrývá: (a) odeslání task přes `instance_queue.py`, (b) zápis do `legal_inbox/<den>/` jako persistentní backup, (c) clipboard fallback přes PowerShell. Vždy použij i tehdy, když Tom přímo nezmíní „skill\" nebo „komunikaci\" — jakmile padne jméno Lik a směr (pošli/check/odpověz), tenhle skill řídí workflow.",
+  "category": "legal-filing",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "lex-atomic-render",
+  "source": "user",
+  "path": "C:\\Users\\tom\\.claude\\skills\\lex-atomic-render\\SKILL.md",
+  "description": "Use when adding or changing visual elements (petit box, evidence table, signature block, meta grid, headings) in the F18 PDF renderer for legal-ship-2026 court filings, or when a rendered PDF needs to visually match the Lex Atomic reference design.",
+  "category": "tm-ingest",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "low-food-slow-down",
+  "source": "user",
+  "path": "C:\\Users\\tom\\.claude\\skills\\low-food-slow-down\\SKILL.md",
+  "description": "Use when token-limit-read shows usage on track to hit the Claude session/weekly limit before it resets — high percent used with a lot of reset time still remaining — and work should continue at a reduced pace instead of stopping outright; also when an instance finishes work and its token cost and what it did must be logged for Jarvis.",
+  "category": "session",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "no-food-sleep",
+  "source": "user",
+  "path": "C:\\Users\\tom\\.claude\\skills\\no-food-sleep\\SKILL.md",
+  "description": "Use when a Claude session/token usage limit has been hit and a reset countdown is known — the wait is longer than a normal idle poll (session resets in, weekly resets in, rate limited, 429, told to wait for quota).",
+  "category": "session",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "oq",
+  "source": "user",
+  "path": "C:\\Users\\tom\\.claude\\skills\\oq\\SKILL.md",
+  "description": "Use when you have a question for Tom that blocks further work but isn't worth an inline interrupt right now — log it as an Open Question instead of asking immediately or silently guessing. Also use to list or answer previously logged open questions.",
+  "category": "legal-filing",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "preparing-chatgpt-attachment",
+  "source": "user",
+  "path": "C:\\Users\\tom\\.claude\\skills\\preparing-chatgpt-attachment\\SKILL.md",
+  "description": "Use when Tom wants an exhibit (přepis WhatsApp, chronology, K-card) produced or extended in ChatGPT in the same format as an existing attachment, and Claude must prepare the prompt and input files for him to paste.",
+  "category": "legal-filing",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "self-control-read",
+  "source": "user",
+  "path": "C:\\Users\\tom\\.claude\\skills\\self-control-read\\SKILL.md",
+  "description": "Use when a new F-filing version was just created after a batch of changes and needs independent review before handing it to Tom, when deciding whether another iteration is worthwhile, or when Tom says \"self-control-read\", \"přečti to sám\", \"má smysl další iterace\".",
+  "category": "vyhledavani",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "seo-audit-refresh",
+  "source": "user",
+  "path": "C:\\Users\\tom\\.claude\\skills\\seo-audit-refresh\\SKILL.md",
+  "description": "Use when running a repeat SEO audit on a site that already has a prior audit report on disk — symptoms include being asked to \"refresh,\" \"re-check,\" or \"follow up on\" SEO status, or wanting to know what changed since last time rather than producing a fresh one-off crawl.",
+  "category": "vyhledavani",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "slim-diet",
+  "source": "user",
+  "path": "C:\\Users\\tom\\.claude\\skills\\slim-diet\\SKILL.md",
+  "description": "Use when a legal filing has grown long through iterative additions (repeated arguments, restated grounds, bulky supporting detail) and needs tightening before shipping — without risking loss of load-bearing arguments, exact citations, dates, or petit wording.",
+  "category": "legal-filing",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "spis-ocr-catalog",
+  "source": "user",
+  "path": "C:\\Users\\tom\\.claude\\skills\\spis-ocr-catalog\\SKILL.md",
+  "description": "Use when a folder of phone-photographed physical case-file pages (soud_spis, ospod_spis, exekuce spis — hundreds of HEIC/JPG/PNG) needs token-free OCR, per-page metadata (date, spisova znacka/c.j., cislo listu, document type, author guess), duplicate-shot detection, and a searchable catalog — not for a handful of images (use image-ocr-catalog) and not for already-digital PDFs with a text layer.",
+  "category": "legal-filing",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "tom-actual",
+  "source": "user",
+  "path": "C:\\Users\\tom\\.claude\\skills\\tom-actual\\SKILL.md",
+  "description": "Use whenever a new F-document version is created/shipped in legal-ship-2026 (F62-F69 active wave), or when Tom asks to sync/refresh the \"_Actual_Fx\" folder — copies the current-version PDF of every F-cycle into Tom_analyse/_Actual_Fx/ and deletes the previous version of that same F-cycle from the folder, so Tom always has exactly one PDF per F-cycle in one place without switching directories.",
+  "category": "komunikace",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "total-analysis-all-in-one",
+  "source": "user",
+  "path": "C:\\Users\\tom\\.claude\\skills\\total-analysis-all-in-one\\SKILL.md",
+  "description": "| Kompletní právní analýza českého soudního podání — návrh PR/PO, žaloba, doplnění, vyjádření. Spusť VŽDY když Tom říká \"analyzuj podání\", \"total analysis\", \"cdc analysis\", \"kompletní analýza\", \"legal review\", \"zkontroluj to\", \"je to ready?\", \"GO check\", \"pre-flight\", \"ship check\", \"je to hotové?\", \"lock check\", \"unlock\", \"certifikát\", \"fix list\", \"co blokuje odeslání\", nebo otevírá/uploaduje právní .md nebo .pdf dokument v kontextu soudního řízení. Skill produkuje: Lock Matrix, mini report na každý lock, Unlock Certificate (vše ✅) nebo Fix List (problémy). Funguje v FILE MODE (jeden soubor) i BUNDLE MODE (celý balík podání). Použij i při \"jde to odeslat?\", \"zkontroluj přílohy\", \"audit příloh\", \"je datum správné?\", \"porovnej s předchozí verzí\", \"vertikální analýza\", \"red team\", \"jak to vidí soudce\".",
+  "category": "legal-filing",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "unlock-all-locks",
+  "source": "user",
+  "path": "C:\\Users\\tom\\.claude\\skills\\unlock-all-locks\\SKILL.md",
+  "description": "**Trigger:** \"unlock locks\", \"projdi locky\", \"spusť locky\", \"/unlock-all-locks\"",
+  "category": "legal-filing",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "vertical-analysis",
+  "source": "user",
+  "path": "C:\\Users\\tom\\.claude\\skills\\vertical-analysis\\SKILL.md",
+  "description": "Use when a filing has many versions (F62.1 → F62.100), before freezing or after heavy cuts and restructures, when the author suspects a better formulation or a strong argument was dropped on the way, or when checking whether the filing still serves its original assignment.",
+  "category": "legal-filing",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "watching-away-thread",
+  "source": "user",
+  "path": "C:\\Users\\tom\\.claude\\skills\\watching-away-thread\\SKILL.md",
+  "description": "Use when Tom has left the PC (idle 30+ min) and is writing from his phone into a ChatGPT thread, and new replies in that thread should be picked up and processed while he is away.",
+  "category": "vyhledavani",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "a11y-debugging",
+  "source": "claude-plugins-official/chrome-devtools-mcp",
+  "path": "C:\\Users\\tom\\.claude\\plugins\\cache\\claude-plugins-official\\chrome-devtools-mcp\\1.5.0\\skills\\a11y-debugging\\SKILL.md",
+  "description": "Uses Chrome DevTools MCP for accessibility (a11y) debugging and auditing based on web.dev guidelines. Use when testing semantic HTML, ARIA labels, focus states, keyboard navigation, tap targets, and color contrast.",
+  "category": "dev-proces",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "chrome-devtools",
+  "source": "claude-plugins-official/chrome-devtools-mcp",
+  "path": "C:\\Users\\tom\\.claude\\plugins\\cache\\claude-plugins-official\\chrome-devtools-mcp\\1.5.0\\skills\\chrome-devtools\\SKILL.md",
+  "description": "Uses Chrome DevTools via MCP for efficient debugging, troubleshooting and browser automation. Use when debugging web pages, automating browser interactions, analyzing performance, or inspecting network requests. This skill does not apply to `--slim` mode (MCP configuration).",
+  "category": "infra",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "chrome-devtools-cli",
+  "source": "claude-plugins-official/chrome-devtools-mcp",
+  "path": "C:\\Users\\tom\\.claude\\plugins\\cache\\claude-plugins-official\\chrome-devtools-mcp\\1.5.0\\skills\\chrome-devtools-cli\\SKILL.md",
+  "description": "Use this skill to write shell scripts or run shell commands to automate tasks in the browser or otherwise use Chrome DevTools via CLI.",
+  "category": "infra",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "debug-optimize-lcp",
+  "source": "claude-plugins-official/chrome-devtools-mcp",
+  "path": "C:\\Users\\tom\\.claude\\plugins\\cache\\claude-plugins-official\\chrome-devtools-mcp\\1.5.0\\skills\\debug-optimize-lcp\\SKILL.md",
+  "description": "Guides debugging and optimizing Largest Contentful Paint (LCP) using Chrome DevTools MCP tools. Use this skill whenever the user asks about LCP performance, slow page loads, Core Web Vitals optimization, or wants to understand why their page's main content takes too long to appear. Also use when the user mentions \"largest contentful paint\", \"page load speed\", \"CWV\", or wants to improve how fast their hero image or main content renders.",
+  "category": "dev-proces",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "memory-leak-debugging",
+  "source": "claude-plugins-official/chrome-devtools-mcp",
+  "path": "C:\\Users\\tom\\.claude\\plugins\\cache\\claude-plugins-official\\chrome-devtools-mcp\\1.5.0\\skills\\memory-leak-debugging\\SKILL.md",
+  "description": "Diagnoses and resolves memory leaks in JavaScript/Node.js applications. Use when a user reports high memory usage, OOM errors, or wants to analyze heapsnapshots or run memory leak detection tools like memlab.",
+  "category": "dev-proces",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "troubleshooting",
+  "source": "claude-plugins-official/chrome-devtools-mcp",
+  "path": "C:\\Users\\tom\\.claude\\plugins\\cache\\claude-plugins-official\\chrome-devtools-mcp\\1.5.0\\skills\\troubleshooting\\SKILL.md",
+  "description": "Uses Chrome DevTools MCP and documentation to troubleshoot connection and target issues. Trigger this skill when list_pages, new_page, or navigate_page fail, or when the server initialization fails.",
+  "category": "session",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "claude-md-improver",
+  "source": "claude-plugins-official/claude-md-management",
+  "path": "C:\\Users\\tom\\.claude\\plugins\\cache\\claude-plugins-official\\claude-md-management\\1.0.0\\skills\\claude-md-improver\\SKILL.md",
+  "description": "Audit and improve CLAUDE.md files in repositories. Use when user asks to check, audit, update, improve, or fix CLAUDE.md files. Scans for all CLAUDE.md files, evaluates quality against templates, outputs quality report, then makes targeted updates. Also use when the user mentions \"CLAUDE.md maintenance\" or \"project memory optimization\".",
+  "category": "ostatni",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "frontend-design",
+  "source": "claude-plugins-official/frontend-design",
+  "path": "C:\\Users\\tom\\.claude\\plugins\\cache\\claude-plugins-official\\frontend-design\\unknown\\skills\\frontend-design\\SKILL.md",
+  "description": "Create distinctive, production-grade frontend interfaces with high design quality. Use this skill when the user asks to build web components, pages, or applications. Generates creative, polished code that avoids generic AI aesthetics.",
+  "category": "session",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "attorney-assist",
+  "source": "claude-plugins-official/legalzoom",
+  "path": "C:\\Users\\tom\\.claude\\plugins\\cache\\claude-plugins-official\\legalzoom\\1.0.0\\skills\\attorney-assist\\SKILL.md",
+  "description": "Connects the user with a LegalZoom attorney for legal consultation. Use when a user asks about attorneys, lawyers, or legal help, or when contract review reveals high risks or low-confidence findings.",
+  "category": "legal-filing",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "liquid-theme-a11y",
+  "source": "claude-plugins-official/liquid-skills",
+  "path": "C:\\Users\\tom\\.claude\\plugins\\cache\\claude-plugins-official\\liquid-skills\\1.0.0\\skills\\liquid-theme-a11y\\SKILL.md",
+  "description": "Implement WCAG 2.2 accessibility patterns in Shopify Liquid themes. Covers e-commerce-specific components including product cards, carousels, cart drawers, price display, forms, filters, and modals. Use when building accessible theme components, fixing accessibility issues, or reviewing ARIA patterns in .liquid files.",
+  "category": "ostatni",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "liquid-theme-standards",
+  "source": "claude-plugins-official/liquid-skills",
+  "path": "C:\\Users\\tom\\.claude\\plugins\\cache\\claude-plugins-official\\liquid-skills\\1.0.0\\skills\\liquid-theme-standards\\SKILL.md",
+  "description": "CSS, JavaScript, and HTML coding standards for Shopify Liquid themes. Covers BEM naming inside stylesheet tags, design tokens, CSS custom properties, Web Components for themes, defensive CSS, and progressive enhancement. Use when writing CSS/JS/HTML in .liquid files or theme asset files.",
+  "category": "session",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "shopify-liquid-themes",
+  "source": "claude-plugins-official/liquid-skills",
+  "path": "C:\\Users\\tom\\.claude\\plugins\\cache\\claude-plugins-official\\liquid-skills\\1.0.0\\skills\\shopify-liquid-themes\\SKILL.md",
+  "description": "Generate Shopify Liquid theme code (sections, blocks, snippets) with correct schema JSON, LiquidDoc headers, translation keys, and CSS/JS patterns. Use when creating or editing .liquid files for Shopify themes, working with schema, doc, stylesheet, javascript tags, or Shopify Liquid objects/filters/tags.",
+  "category": "legal-filing",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "playground",
+  "source": "claude-plugins-official/playground",
+  "path": "C:\\Users\\tom\\.claude\\plugins\\cache\\claude-plugins-official\\playground\\unknown\\skills\\playground\\SKILL.md",
+  "description": "Creates interactive HTML playgrounds — self-contained single-file explorers that let users configure something visually through controls, see a live preview, and copy out a prompt. Use when the user asks to make a playground, explorer, or interactive tool for a topic.",
+  "category": "dev-proces",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "postiz",
+  "source": "claude-plugins-official/postiz",
+  "path": "C:\\Users\\tom\\.claude\\plugins\\cache\\claude-plugins-official\\postiz\\2.0.12\\skills\\postiz\\SKILL.md",
+  "description": "../../SKILL.md",
+  "category": "ostatni",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "remember",
+  "source": "claude-plugins-official/remember",
+  "path": "C:\\Users\\tom\\.claude\\plugins\\cache\\claude-plugins-official\\remember\\0.8.3\\skills\\remember\\SKILL.md",
+  "description": "Save session state for clean continuation next session.",
+  "category": "session",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "ai-visibility",
+  "source": "claude-plugins-official/searchfit-seo",
+  "path": "C:\\Users\\tom\\.claude\\plugins\\cache\\claude-plugins-official\\searchfit-seo\\1.0.0\\skills\\ai-visibility\\SKILL.md",
+  "description": "Analyze and improve how a brand appears in AI-generated responses (ChatGPT, Claude, Gemini, Perplexity). Use when the user asks about \"AI visibility\", \"AI tracking\", \"how does my brand appear in AI\", \"AI mentions\", \"LLM visibility\", \"AI search optimization\", \"GEO\", \"generative engine optimization\", \"answer engine optimization\", \"AEO\", or wants their brand to be recommended by AI assistants.",
+  "category": "komunikace",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "broken-links",
+  "source": "claude-plugins-official/searchfit-seo",
+  "path": "C:\\Users\\tom\\.claude\\plugins\\cache\\claude-plugins-official\\searchfit-seo\\1.0.0\\skills\\broken-links\\SKILL.md",
+  "description": "Find and fix broken links on a website or in a codebase. Use when the user asks to \"check broken links\", \"find dead links\", \"fix 404s\", \"link checker\", \"broken link audit\", \"find dead URLs\", or wants to identify and repair links that lead to non-existent pages.",
+  "category": "vyhledavani",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "content-brief",
+  "source": "claude-plugins-official/searchfit-seo",
+  "path": "C:\\Users\\tom\\.claude\\plugins\\cache\\claude-plugins-official\\searchfit-seo\\1.0.0\\skills\\content-brief\\SKILL.md",
+  "description": "Generate a detailed content brief for a specific article or page. Use when the user asks to \"create a content brief\", \"write a brief\", \"article outline\", \"blog brief\", \"writing brief\", \"content outline\", or wants a structured plan before writing content.",
+  "category": "ostatni",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "content-strategy",
+  "source": "claude-plugins-official/searchfit-seo",
+  "path": "C:\\Users\\tom\\.claude\\plugins\\cache\\claude-plugins-official\\searchfit-seo\\1.0.0\\skills\\content-strategy\\SKILL.md",
+  "description": "Develop a content strategy for SEO and organic growth. Use when the user asks to \"plan content\", \"content strategy\", \"content calendar\", \"what should I write about\", \"content gap analysis\", \"topic research\", \"editorial plan\", or wants to plan what content to create for their website.",
+  "category": "dev-proces",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "content-translation",
+  "source": "claude-plugins-official/searchfit-seo",
+  "path": "C:\\Users\\tom\\.claude\\plugins\\cache\\claude-plugins-official\\searchfit-seo\\1.0.0\\skills\\content-translation\\SKILL.md",
+  "description": "Translate and localize website content for international SEO. Use when the user asks to \"translate content\", \"localize my site\", \"multilingual SEO\", \"translate to [language]\", \"international SEO\", \"hreflang\", \"multi-language website\", or wants to expand content to new languages and markets.",
+  "category": "ostatni",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "internal-linking",
+  "source": "claude-plugins-official/searchfit-seo",
+  "path": "C:\\Users\\tom\\.claude\\plugins\\cache\\claude-plugins-official\\searchfit-seo\\1.0.0\\skills\\internal-linking\\SKILL.md",
+  "description": "Analyze and improve internal linking strategy for a website. Use when the user asks about \"internal links\", \"link structure\", \"site architecture\", \"link strategy\", \"orphan pages\", \"link equity\", \"page authority distribution\", or wants to improve how pages connect to each other.",
+  "category": "ostatni",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "keyword-clustering",
+  "source": "claude-plugins-official/searchfit-seo",
+  "path": "C:\\Users\\tom\\.claude\\plugins\\cache\\claude-plugins-official\\searchfit-seo\\1.0.0\\skills\\keyword-clustering\\SKILL.md",
+  "description": "Cluster and organize keywords into topical groups for SEO. Use when the user asks to \"cluster keywords\", \"group keywords\", \"organize keywords\", \"keyword mapping\", \"topic clusters\", \"keyword grouping\", or has a list of keywords they want structured into a content plan.",
+  "category": "komunikace",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "on-page-seo",
+  "source": "claude-plugins-official/searchfit-seo",
+  "path": "C:\\Users\\tom\\.claude\\plugins\\cache\\claude-plugins-official\\searchfit-seo\\1.0.0\\skills\\on-page-seo\\SKILL.md",
+  "description": "Optimize a specific page for on-page SEO. Use when the user asks to \"optimize this page\", \"improve SEO for this page\", \"on-page optimization\", \"optimize meta tags\", \"improve rankings for [keyword]\", or wants to make a specific page rank better.",
+  "category": "ostatni",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "schema-markup",
+  "source": "claude-plugins-official/searchfit-seo",
+  "path": "C:\\Users\\tom\\.claude\\plugins\\cache\\claude-plugins-official\\searchfit-seo\\1.0.0\\skills\\schema-markup\\SKILL.md",
+  "description": "Generate JSON-LD structured data / schema markup for web pages. Use when the user asks to \"add schema\", \"generate JSON-LD\", \"structured data\", \"schema markup\", \"rich snippets\", \"add schema.org\", or wants to improve how their pages appear in search results.",
+  "category": "ostatni",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "seo-audit",
+  "source": "claude-plugins-official/searchfit-seo",
+  "path": "C:\\Users\\tom\\.claude\\plugins\\cache\\claude-plugins-official\\searchfit-seo\\1.0.0\\skills\\seo-audit\\SKILL.md",
+  "description": "Run a comprehensive SEO audit on a website or codebase. Use when the user asks to \"audit SEO\", \"check my site's SEO\", \"find SEO issues\", \"SEO health check\", \"technical SEO review\", \"site audit\", or wants to identify SEO problems on their website.",
+  "category": "vyhledavani",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "technical-seo",
+  "source": "claude-plugins-official/searchfit-seo",
+  "path": "C:\\Users\\tom\\.claude\\plugins\\cache\\claude-plugins-official\\searchfit-seo\\1.0.0\\skills\\technical-seo\\SKILL.md",
+  "description": "Perform a technical SEO audit on a website or codebase. Use when the user asks for \"technical SEO\", \"site speed\", \"core web vitals\", \"crawlability\", \"indexation issues\", \"robots.txt\", \"sitemap check\", \"render blocking\", \"page speed\", \"mobile-friendly check\", or wants to fix technical factors affecting search rankings.",
+  "category": "ostatni",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "slack-messaging",
+  "source": "claude-plugins-official/slack",
+  "path": "C:\\Users\\tom\\.claude\\plugins\\cache\\claude-plugins-official\\slack\\1.0.0\\skills\\slack-messaging\\SKILL.md",
+  "description": "Guidance for composing well-formatted, effective Slack messages using standard markdown",
+  "category": "komunikace",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "slack-search",
+  "source": "claude-plugins-official/slack",
+  "path": "C:\\Users\\tom\\.claude\\plugins\\cache\\claude-plugins-official\\slack\\1.0.0\\skills\\slack-search\\SKILL.md",
+  "description": "Guidance for effectively searching Slack to find messages, files, channels, and people",
+  "category": "komunikace",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "brainstorming",
+  "source": "claude-plugins-official/superpowers",
+  "path": "C:\\Users\\tom\\.claude\\plugins\\cache\\claude-plugins-official\\superpowers\\6.1.1\\skills\\brainstorming\\SKILL.md",
+  "description": "You MUST use this before any creative work - creating features, building components, adding functionality, or modifying behavior. Explores user intent, requirements and design before implementation.",
+  "category": "tm-ingest",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "dispatching-parallel-agents",
+  "source": "claude-plugins-official/superpowers",
+  "path": "C:\\Users\\tom\\.claude\\plugins\\cache\\claude-plugins-official\\superpowers\\6.1.1\\skills\\dispatching-parallel-agents\\SKILL.md",
+  "description": "Use when facing 2+ independent tasks that can be worked on without shared state or sequential dependencies",
+  "category": "ostatni",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "executing-plans",
+  "source": "claude-plugins-official/superpowers",
+  "path": "C:\\Users\\tom\\.claude\\plugins\\cache\\claude-plugins-official\\superpowers\\6.1.1\\skills\\executing-plans\\SKILL.md",
+  "description": "Use when you have a written implementation plan to execute in a separate session with review checkpoints",
+  "category": "dev-proces",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "finishing-a-development-branch",
+  "source": "claude-plugins-official/superpowers",
+  "path": "C:\\Users\\tom\\.claude\\plugins\\cache\\claude-plugins-official\\superpowers\\6.1.1\\skills\\finishing-a-development-branch\\SKILL.md",
+  "description": "Use when implementation is complete, all tests pass, and you need to decide how to integrate the work - guides completion of development work by presenting structured options for merge, PR, or cleanup",
+  "category": "dev-proces",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "receiving-code-review",
+  "source": "claude-plugins-official/superpowers",
+  "path": "C:\\Users\\tom\\.claude\\plugins\\cache\\claude-plugins-official\\superpowers\\6.1.1\\skills\\receiving-code-review\\SKILL.md",
+  "description": "Use when receiving code review feedback, before implementing suggestions, especially if feedback seems unclear or technically questionable - requires technical rigor and verification, not performative agreement or blind implementation",
+  "category": "dev-proces",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "requesting-code-review",
+  "source": "claude-plugins-official/superpowers",
+  "path": "C:\\Users\\tom\\.claude\\plugins\\cache\\claude-plugins-official\\superpowers\\6.1.1\\skills\\requesting-code-review\\SKILL.md",
+  "description": "Use when completing tasks, implementing major features, or before merging to verify work meets requirements",
+  "category": "dev-proces",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "subagent-driven-development",
+  "source": "claude-plugins-official/superpowers",
+  "path": "C:\\Users\\tom\\.claude\\plugins\\cache\\claude-plugins-official\\superpowers\\6.1.1\\skills\\subagent-driven-development\\SKILL.md",
+  "description": "Use when executing implementation plans with independent tasks in the current session",
+  "category": "dev-proces",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "systematic-debugging",
+  "source": "claude-plugins-official/superpowers",
+  "path": "C:\\Users\\tom\\.claude\\plugins\\cache\\claude-plugins-official\\superpowers\\6.1.1\\skills\\systematic-debugging\\SKILL.md",
+  "description": "Use when encountering any bug, test failure, or unexpected behavior, before proposing fixes",
+  "category": "dev-proces",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "test-driven-development",
+  "source": "claude-plugins-official/superpowers",
+  "path": "C:\\Users\\tom\\.claude\\plugins\\cache\\claude-plugins-official\\superpowers\\6.1.1\\skills\\test-driven-development\\SKILL.md",
+  "description": "Use when implementing any feature or bugfix, before writing implementation code",
+  "category": "dev-proces",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "using-git-worktrees",
+  "source": "claude-plugins-official/superpowers",
+  "path": "C:\\Users\\tom\\.claude\\plugins\\cache\\claude-plugins-official\\superpowers\\6.1.1\\skills\\using-git-worktrees\\SKILL.md",
+  "description": "Use when starting feature work that needs isolation from current workspace or before executing implementation plans - ensures an isolated workspace exists via native tools or git worktree fallback",
+  "category": "dev-proces",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "using-superpowers",
+  "source": "claude-plugins-official/superpowers",
+  "path": "C:\\Users\\tom\\.claude\\plugins\\cache\\claude-plugins-official\\superpowers\\6.1.1\\skills\\using-superpowers\\SKILL.md",
+  "description": "Use when starting any conversation - establishes how to find and use skills, requiring skill invocation before ANY response including clarifying questions",
+  "category": "dev-proces",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "verification-before-completion",
+  "source": "claude-plugins-official/superpowers",
+  "path": "C:\\Users\\tom\\.claude\\plugins\\cache\\claude-plugins-official\\superpowers\\6.1.1\\skills\\verification-before-completion\\SKILL.md",
+  "description": "Use when about to claim work is complete, fixed, or passing, before committing or creating PRs - requires running verification commands and confirming output before making any success claims; evidence before assertions always",
+  "category": "ostatni",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "writing-plans",
+  "source": "claude-plugins-official/superpowers",
+  "path": "C:\\Users\\tom\\.claude\\plugins\\cache\\claude-plugins-official\\superpowers\\6.1.1\\skills\\writing-plans\\SKILL.md",
+  "description": "Use when you have a spec or requirements for a multi-step task, before touching code",
+  "category": "dev-proces",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "writing-skills",
+  "source": "claude-plugins-official/superpowers",
+  "path": "C:\\Users\\tom\\.claude\\plugins\\cache\\claude-plugins-official\\superpowers\\6.1.1\\skills\\writing-skills\\SKILL.md",
+  "description": "Use when creating new skills, editing existing skills, or verifying skills work before deployment",
+  "category": "dev-proces",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "context-mode",
+  "source": "context-mode/context-mode",
+  "path": "C:\\Users\\tom\\.claude\\plugins\\cache\\context-mode\\context-mode\\1.0.169\\skills\\context-mode\\SKILL.md",
+  "description": "| Use context-mode tools (ctx_execute, ctx_execute_file) instead of Bash/cat when processing large outputs. Triggers: \"analyze logs\", \"summarize output\", \"process data\", \"parse JSON\", \"filter results\", \"extract errors\", \"check build output\", \"analyze dependencies\", \"process API response\", \"large file analysis\", \"page snapshot\", \"browser snapshot\", \"DOM structure\", \"inspect page\", \"accessibility tree\", \"Playwright snapshot\", \"run tests\", \"test output\", \"coverage report\", \"git log\", \"recent commits\", \"diff between branches\", \"list containers\", \"pod status\", \"disk usage\", \"fetch docs\", \"API reference\", \"index documentation\", \"call API\", \"check response\", \"query results\", \"find TODOs\", \"count lines\", \"codebase statistics\", \"security audit\", \"outdated packages\", \"dependency tree\", \"cloud resources\", \"CI/CD output\". Also triggers on ANY MCP tool output that may exceed 20 lines. Subagent routing is handled automatically via PreToolUse hook.",
+  "category": "infra",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "ctx-doctor",
+  "source": "context-mode/context-mode",
+  "path": "C:\\Users\\tom\\.claude\\plugins\\cache\\context-mode\\context-mode\\1.0.169\\skills\\ctx-doctor\\SKILL.md",
+  "description": "| Run context-mode diagnostics. Checks runtimes, hooks, FTS5, plugin registration, npm and marketplace versions. Trigger: /context-mode:ctx-doctor",
+  "category": "infra",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "ctx-index",
+  "source": "context-mode/context-mode",
+  "path": "C:\\Users\\tom\\.claude\\plugins\\cache\\context-mode\\context-mode\\1.0.169\\skills\\ctx-index\\SKILL.md",
+  "description": "| Index a local file or directory into context-mode's persistent FTS5 knowledge base so future ctx_search calls can retrieve focused snippets without rereading raw files. Trigger: /context-mode:ctx-index",
+  "category": "infra",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "ctx-insight",
+  "source": "context-mode/context-mode",
+  "path": "C:\\Users\\tom\\.claude\\plugins\\cache\\context-mode\\context-mode\\1.0.169\\skills\\ctx-insight\\SKILL.md",
+  "description": "| Open the context-mode Insight dashboard in your default browser. Insight is the hosted analytics layer for AI-assisted engineering teams — per-engineer productive rate, retry waste, blocker detection, role-narrowed views. Trigger: /context-mode:ctx-insight",
+  "category": "infra",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "ctx-purge",
+  "source": "context-mode/context-mode",
+  "path": "C:\\Users\\tom\\.claude\\plugins\\cache\\context-mode\\context-mode\\1.0.169\\skills\\ctx-purge\\SKILL.md",
+  "description": "| Purge the context-mode knowledge base. Permanently deletes all indexed content and resets session stats. This is destructive and cannot be undone. Trigger: /context-mode:ctx-purge",
+  "category": "infra",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "ctx-search",
+  "source": "context-mode/context-mode",
+  "path": "C:\\Users\\tom\\.claude\\plugins\\cache\\context-mode\\context-mode\\1.0.169\\skills\\ctx-search\\SKILL.md",
+  "description": "| Search context-mode's persistent FTS5 knowledge base for previously indexed local project content, documentation, or session memory. Trigger: /context-mode:ctx-search",
+  "category": "vyhledavani",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "ctx-stats",
+  "source": "context-mode/context-mode",
+  "path": "C:\\Users\\tom\\.claude\\plugins\\cache\\context-mode\\context-mode\\1.0.169\\skills\\ctx-stats\\SKILL.md",
+  "description": "| Show how much context window context-mode saved this session. Displays token consumption, context savings ratio, and per-tool breakdown. Read-only — shows stats only, no reset capability. To wipe the knowledge base entirely, use ctx_purge instead. Trigger: /context-mode:ctx-stats",
+  "category": "infra",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
+  "name": "ctx-upgrade",
+  "source": "context-mode/context-mode",
+  "path": "C:\\Users\\tom\\.claude\\plugins\\cache\\context-mode\\context-mode\\1.0.169\\skills\\ctx-upgrade\\SKILL.md",
+  "description": "| Update context-mode from GitHub and fix hooks/settings. Pulls latest, builds, installs, updates npm global, configures hooks. Trigger: /context-mode:ctx-upgrade",
+  "category": "infra",
+  "deprecated": false,
+  "no_desc": false
+ }
+]
