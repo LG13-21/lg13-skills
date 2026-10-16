@@ -151,7 +151,10 @@ def pick(query, n):
         ds = tok(i["description"])
         docs.append((Counter(map(stem, ds)), set(map(stem, nm)), len(ds) or 1))
     N = len(docs)
-    df = Counter(w for c, _, _ in docs for w in set(c))
+    if not N:
+        print("zadna shoda - katalog je prazdny, spust `skill_catalog.py build`")
+        return
+    df =Counter(w for c, _, _ in docs for w in set(c))
     avg = sum(l for _, _, l in docs) / N
     q = list(map(stem, expand(tok(query))))
     res = []
@@ -174,11 +177,16 @@ def pick(query, n):
         print(f"{s:5.1f}  /{i['name']}  [{i['category']}/{i['source']}]\n       {d[:140]}")
 
 
-ap = argparse.ArgumentParser()
-sub = ap.add_subparsers(dest="cmd", required=True)
-sub.add_parser("build")
-p = sub.add_parser("pick")
-p.add_argument("query", nargs="+")
-p.add_argument("-n", type=int, default=5)
-a = ap.parse_args()
-build() if a.cmd == "build" else pick(" ".join(a.query), a.n)
+def main():
+    ap = argparse.ArgumentParser()
+    sub = ap.add_subparsers(dest="cmd", required=True)
+    sub.add_parser("build")
+    p = sub.add_parser("pick")
+    p.add_argument("query", nargs="+")
+    p.add_argument("-n", type=int, default=5)
+    a = ap.parse_args()
+    build() if a.cmd == "build" else pick(" ".join(a.query), a.n)
+
+
+if __name__ == "__main__":
+    main()
