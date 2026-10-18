@@ -113,12 +113,38 @@ with open(base / "_log.jsonl", "a", encoding="utf-8") as f:
     f.write(json.dumps({"ts": ts, "from": me, "to": them, "round": msg["round"], "subject": msg["subject"], "tokens": msg["tokens_spent_estimate"]}) + "\n")
 ```
 
-### 4. Arm Monitor (watcher pro příchozí)
+### 4. Arm Monitor (watcher pro příchozí) — Claude Code
 
 ```
 Monitor tool tail watch L:/LG13/runtime/ops/ping_pong/ for new *_to_<me>_*.json files
 → on new file: notification → wake instance → goto step 1
 ```
+
+---
+
+## RUNTIME PROFILES (kdo může hrát)
+
+Protokol je soubory v `L:/LG13/runtime/ops/ping_pong/` — hrát může kdokoli, kdo čte/zapisuje na `L:` a umí spustit jeden python příkaz. Jméno instance: lowercase `a-z0-9_-` (např. `oc`, `codex`, `ollama`, `claw`). Neznámé jméno si při prvním pongu založí záznam v `_budget.json` samo.
+
+**Společný nástroj (bez Monitoru, bez Claude):** `python L:/GitHub/lg13-coder/agent/skills/pingpong.py`
+
+```bash
+python .../pingpong.py send --from oc --to strat --subject "S" --body "B" --runtime opencode-gpt-5.6 [--in-reply-to FILE] [--round R145] [--priority P1]
+python .../pingpong.py inbox --me oc [--after <posledni_zpracovany_soubor>]
+python .../pingpong.py watch --me oc --interval 15      # tiskne PINGPONG_NEW <me> file=...
+```
+
+`send` dělá atomic write + `_budget.json` (init-if-missing) + `_log.jsonl`; dvě zprávy ve stejné sekundě se nepřepíší.
+
+| Runtime | Jak čte příchozí | Jak píše | Poznámka |
+|---|---|---|---|
+| Claude Code (coder/strat/legal) | Monitor (viz krok 4) | snippet výše nebo `pingpong.py send` | `context_pct` povinně z `claude_usage_read.py` |
+| OpenCode (GPT-5.6, Ollama modely) | `pingpong.py inbox --me oc` na začátku tahu; `watch` v pozadí jako shell úloha | `pingpong.py send --runtime ...` | skill viditelný přes `~/.agents/skills/ping-pong` (junction); `context_pct` null |
+| Codex CLI / Codex Desktop | `inbox` na začátku tahu; hook SessionStart může spustit `inbox` | `pingpong.py send --runtime codex-cli` | skill přes `~/.codex/skills/ping-pong` (junction); bez Monitoru |
+| OpenClaw / holý Ollama agent | skript volá `inbox` ve smyčce / `watch` | `pingpong.py send` | SKILL.md nečtou — stačí jim tento příkaz v promptu |
+| Cloud Claude / cloud Codex | — | — | **Nepodporováno:** nemají přístup na `L:`; vyžaduje relay (např. GH issue #14 nebo pl_server API) — neimplementováno |
+
+Ne-Claude instance: `context_pct` = null, `compact_signal` = false, ostatní povinná pole beze změny. 15-min heartbeat platí stejně (`type: pong`, subject `[HEARTBEAT] ...`).
 
 ---
 
@@ -138,9 +164,10 @@ Monitor tool tail watch L:/LG13/runtime/ops/ping_pong/ for new *_to_<me>_*.json 
 - `decisions` (object — taken decisions; empty `{}` pokud none)
 - `questions_for_other` (array — co chceš od receivera; empty `[]` pokud none)
 - `tokens_spent_estimate` (int)
-- `context_pct` (int 0-100) — **HARD RULE 11.5.2026:** volej `python L:/LG13/app/agent/skills/claude_usage_read.py --field session_pct` PŘED každým pong; fill skutečnou hodnotu, ne odhad. Pokud null → použij interní estimate + flag `compact_signal: true` pokud >70.
+- `context_pct` (int 0-100; **null** u runtime bez měřitelného kontextu) — **HARD RULE 11.5.2026 (jen Claude Code instance):** volej `python L:/LG13/app/agent/skills/claude_usage_read.py --field session_pct` PŘED každým pong; fill skutečnou hodnotu, ne odhad. Pokud null → použij interní estimate + flag `compact_signal: true` pokud >70.
 - `compact_signal` (bool)
 - `priority` ("P0"/"P1"/"P2"/"P3")
+- `agent_runtime` (str, volitelné; např. `claude-code`, `opencode-gpt-5.6`, `codex-cli`, `ollama-gemma4:12b`) — receiver podle něj čte budget pole (u ne-Claude runtime jsou `token_limit_5h`/`context_pct` null)
 
 **Doporučená:**
 - `refs` (array — queue task IDs, paths, jiné pongy)

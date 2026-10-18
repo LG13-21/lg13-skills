@@ -711,6 +711,15 @@
   "no_desc": false
  },
  {
+  "name": "skill-catalog",
+  "source": "lg13-skills",
+  "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\skill-catalog\\SKILL.md",
+  "description": "Use when unsure which skill fits the current task, when a skill inventory or up-to-date catalog is needed, or after skills were added, removed or renamed. Trigger - \"skill-catalog\", \"jaky skill\", \"ktery skill pouzit\", \"inventura skills\", \"katalog skills\", \"pick skill\".",
+  "category": "vyhledavani",
+  "deprecated": false,
+  "no_desc": false
+ },
+ {
   "name": "skill-creator",
   "source": "lg13-skills",
   "path": "L:\\GitHub\\lg13-skills\\plugins\\lg13-skills\\skills\\skill-creator\\SKILL.md",

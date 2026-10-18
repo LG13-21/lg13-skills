@@ -1,4 +1,4 @@
-# SKILL CATALOG (194 skills)
+# SKILL CATALOG (195 skills)
 
 Generovano `skill_catalog.py build`. Vyber k ukolu: `skill_catalog.py pick "ukol"`.
 
@@ -212,7 +212,7 @@ Generovano `skill_catalog.py build`. Vyber k ukolu: `skill_catalog.py pick "ukol
 | tmonkey-monitor | lg13-skills | Zapni zvonění — arm Monitor na tmonkey_arm.py, každý nový atom okamžitě probudí instanci. Normálně = zvonění v... |
 | tmonkey-web | lg13-skills | Open Chrome, navigate to ChatGPT LG13 project, open recent conversations in sequence so Tampermonkey capture s... |
 
-## vyhledavani (19)
+## vyhledavani (20)
 
 | skill | zdroj | kdy |
 |---|---|---|
@@ -231,6 +231,7 @@ Generovano `skill_catalog.py build`. Vyber k ukolu: `skill_catalog.py pick "ukol
 | self-control-read | user | Use when a new F-filing version was just created after a batch of changes and needs independent review before ... |
 | seo-audit | claude-plugins-official/searchfit-seo | Run a comprehensive SEO audit on a website or codebase. Use when the user asks to "audit SEO", "check my site'... |
 | seo-audit-refresh | user | Use when running a repeat SEO audit on a site that already has a prior audit report on disk — symptoms include... |
+| skill-catalog | lg13-skills | Use when unsure which skill fits the current task, when a skill inventory or up-to-date catalog is needed, or ... |
 | skill-picker | lg13-skills | Use when the user asks "which skill should I use?", "what skill for X?", "help me pick a skill", "skill picker... |
 | thread-harvest | lg13-skills | This skill should be used when the user says "přečti vlákna", "co leží nevykonáno", "projdi exporty", "harvest... |
 | tool-picker | lg13-skills | Decision tree: který tool kdy. Save-the-tokens hierarchie 1-7 + anti-patterns. Trigger: 'co použít', 'tool', '... |
